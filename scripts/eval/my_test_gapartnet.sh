@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODEL_VERSION=ShapeLLM_7B
+MODEL_VERSION=ShapeLLM_13B
 TAG=gapartnet_v1.0
 
 CUDA_VISIBLE_DEVICES=1 python -m llava.eval.model_vqa \
@@ -9,5 +9,5 @@ CUDA_VISIBLE_DEVICES=1 python -m llava.eval.model_vqa \
     --point-folder ./playground/data/shapellm/gapartnet_pcs \
     --answers-file ./playground/data/eval/gapartnet/answers/$MODEL_VERSION'_'$TAG.jsonl \
     --conv-mode vicuna_v1 \
-    --num_beams 4
+    --num_beams 5
     

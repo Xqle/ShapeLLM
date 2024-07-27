@@ -1,0 +1,596 @@
+[
+    {
+        "point": "Table_22508_0_3.npy",
+        "question": "What is the z-axis distance between the front of the drawer and the handle?",
+        "response": "The z-axis distance between the front of the drawer at z = -0.15 and the z-axis value of the front of the handle at z = -0.24 is 0.09 meters.",
+        "modified_response": "The z-axis distance between the front of the drawer at z = -0.15 and the z-axis value of the front of the handle at z = -0.24 is 0.12 meters."
+    },
+    {
+        "point": "Toilet_102699_0_2.npy",
+        "question": "What are the dimensions of the button along the x, y, and z axis?",
+        "response": "The dimensions of the button are: Along the x-axis: 0.31 - 0.21 = 0.10 meters. Along the y-axis: -0.55 - (-0.58) = 0.03 meters. Along the z-axis: 0.19 - 0.10 = 0.09 meters.",
+        "modified_response": "The dimensions of the button are: Along the x-axis: 0.25 - 0.15 = 0.10 meters. Along the y-axis: -0.40 - (-0.50) = 0.10 meters. Along the z-axis: 0.13 - 0.19 = 0.06 meters."
+    },
+    {
+        "point": "Dishwasher_12349_0_3.npy",
+        "question": "Which points outline the top of the hinge door on the dishwasher?",
+        "response": "The top of the hinge door is outlined by the coordinates with the highest z-values: [-0.88, 0.17, 0.04], [-0.88, -0.44, 0.04], [-0.2, -0.44, -0.27], [-0.2, 0.17, -0.27].",
+        "modified_response": "The top of the hinge door is outlined by the coordinates with the highest z-values: [-0.91, 0.19, 0.04], [-0.91, -0.51, 0.04], [-0.23, -0.51, -0.27], [-0.23, 0.19, -0.27]."
+    },
+    {
+        "point": "StorageFurniture_41510_0_3.npy",
+        "question": "What is the depth of the drawer based on the provided coordinates?",
+        "response": "The depth of the drawer is the difference between the largest and smallest z-coordinates of its bounding box: 0.49 - 0.28 = 0.21.",
+        "modified_response": "The depth of the drawer is the difference between the largest and smallest z-coordinates of its bounding box: 0.49 - 0.28 = 0.21."
+    },
+    {
+        "point": "Toilet_102679_0_3.npy",
+        "question": "Which direction does the slider lid move if I want to make it go higher up?",
+        "response": "Since we're only provided with bounding box coordinates and no indication of the sliding mechanism or possible constraints, we cannot determine which way the slider lid should move to go higher up. We need additional information regarding the sliding mechanism.",
+        "modified_response": "To make the slider lid go higher up, one would likely move it in an upward direction, following the orientation of the bounding box."
+    },
+    {
+        "point": "StorageFurniture_47207_0_2.npy",
+        "question": "Provide the bounding box of the drawer situated at the highest z-axis position.",
+        "response": "The drawer situated at the highest z-axis position has the bounding box [[-0.03, -0.63, 0.6], [-0.57, -0.63, 0.6], [-0.57, 0.25, 0.6], [-0.03, 0.25, 0.6], [-0.03, -0.63, 0.35], [-0.57, -0.63, 0.35], [-0.57, 0.25, 0.35], [-0.03, 0.25, 0.35]].",
+        "modified_response": "The drawer situated at the highest z-axis position has the bounding box [[-0.08, -0.63, 0.6], [-0.57, -0.63, 0.6], [-0.57, 0.25, 0.6], [-0.08, 0.25, 0.6], [-0.08, -0.63, 0.35], [-0.57, -0.63, 0.35], [-0.57, 0.25, 0.35], [-0.08, 0.25, 0.35]]"
+    },
+    {
+        "point": "TrashCan_103633_0_3.npy",
+        "question": "Identify the point on the hinge lid that is highest in terms of z-axis value.",
+        "response": "The point on the hinge lid with the highest z-axis value is [-0.01, -0.5, 0.99] and [-0.01, 0.19, 0.99], which both have a z-axis value of 0.99.",
+        "modified_response": "The point on the hinge lid with the highest z-axis value is [-0.01, 0.19, 0.99]."
+    },
+    {
+        "point": "Suitcase_100550_0_2.npy",
+        "question": "Can you tell me the exact location of the revolute handle?",
+        "response": "Sure! The revolute handle's bounding box is [[0.2, -0.23, 0.75], [0.2, -0.05, 0.75], [0.22, -0.05, 0.75], [0.22, -0.23, 0.75], [0.17, -0.23, 0.7], [0.17, -0.05, 0.7], [0.18, -0.05, 0.69], [0.18, -0.23, 0.69]].",
+        "modified_response": "The exact location of the revolute handle is at the center of the top panel, with its bounding box being [[0.2, -0.23, 0.75], [0.2, -0.05, 0.75], [0.22, -0.05, 0.75], [0.22, -0.23, 0.75], [0.17, -0.23, 0.7], [0.17, -0.05, 0.7], [0.18, -0.05, 0.69], [0.18, -0.23, 0.69]]."
+    },
+    {
+        "point": "TrashCan_102201_0_3.npy",
+        "question": "What is the spatial orientation of the line fixed handle located on the right side of the trashcan when facing it?",
+        "response": "The line fixed handle on the right side, when facing the trashcan, is oriented with its lower points at [0.17, 0.09, 0.89] and [0.15, 0.09, 0.89], and its upper points at [0.17, 0.11, 0.89] and [0.15, 0.11, 0.89]. It lies horizontally, given these are y-axis values and indicate more to the right side.",
+        "modified_response": "The line fixed handle on the right side, when facing the trashcan, is oriented with its lower points at [0.17, 0.09, 0.89] and [0.15, 0.09, 0.89], and its upper points at [0.17, 0.11, 0.89] and [0.15, 0.11, 0.89]. It lies horizontally, given these are y-axis values and indicate more to the right side."
+    },
+    {
+        "point": "Dishwasher_12560_0_3.npy",
+        "question": "What is the height of the hinge door from the given bounding box?",
+        "response": "The height of the hinge door can be calculated by the difference in the z-axis values of the top and bottom corners of the door. Height = 0.34 (top z-coordinate) - (-0.47) (lowest z-coordinate at the back) = 0.81 units.",
+        "modified_response": "The height of the hinge door can be calculated by the difference in the z-axis values of the top and bottom corners of the door. Height = 0.34 (top z-coordinate) - (-0.47) (lowest z-coordinate at the back) = 0.81 units."
+    },
+    {
+        "point": "Safe_102423_0_0.npy",
+        "question": "Can you identify the inside of the hinge door through the bounding box coordinates provided?",
+        "response": "The inside of the hinge door would be the side with the smaller x-coordinate values because the larger x value indicates that the point is closer to the robot, suggesting that the side with smaller x values would face inwards. In this case, the inside of the hinge door is represented by points with x-values of -0.03, as in [[-0.03, -0.29, 0.81], [-0.03, -0.29, -0.8], [-0.02, -0.24, 0.81], [-0.02, -0.24, -0.8]].",
+        "modified_response": "The inside of the hinge door would be the side with the smaller y-coordinate values, as the larger y value indicates that the point is closer to the top, suggesting that the side with smaller y values would face inwards. In this case, the inside of the hinge door is represented by points with y-values of -0.74, as in [[-0.74, -0.03, 0.81], [-0.74, -0.03, -0.8], [-0.73, -0.17, 0.81], [-0.73, -0.17, -0.8]]."
+    },
+    {
+        "point": "StorageFurniture_46092_0_1.npy",
+        "question": "Is there a need for any equipment to operate the hinge door using the line fixed handle?",
+        "response": "Normally, there's no need for any special equipment to operate a hinge door using a line fixed handle, as these handles are designed to be operated by hand.",
+        "modified_response": "Yes, a special tool or equipment might be needed to operate the hinge door using the line fixed handle, depending on its design and material."
+    },
+    {
+        "point": "StorageFurniture_48517_0_3.npy",
+        "question": "Which drawer is on the top position?",
+        "response": "The top drawer's bounding box is [[0.11, -0.7, 0.46], [-0.43, -0.7, 0.46], [-0.43, 0.3, 0.46], [0.11, 0.3, 0.46], [0.11, -0.7, 0.25], [-0.43, -0.7, 0.25], [-0.43, 0.3, 0.25], [0.11, 0.3, 0.25]].",
+        "modified_response": "The top drawer's bounding box is [[0.11, 0.1, 0.46], [-0.43, 0.1, 0.46], [-0.43, 0.9, 0.46], [0.11, 0.9, 0.46], [0.11, 0.1, 0.25], [-0.43, 0.1, 0.25], [-0.43, 0.9, 0.25], [0.11, 0.9, 0.25]]."
+    },
+    {
+        "point": "TrashCan_102234_0_1.npy",
+        "question": "Which parts on the trashcan are explicitly used for opening actions?",
+        "response": "Both the hinge door with its bounding box [[-0.52, 0.17, 0.29], [-0.52, -0.49, 0.29], [-0.45, -0.49, -0.57], [-0.45, 0.17, -0.57], [-0.47, 0.17, 0.3], [-0.47, -0.49, 0.3], [-0.39, -0.49, -0.56], [-0.39, 0.17, -0.56]] and the drawer with its bounding box [[0.17, -0.49, 0.54], [-0.72, -0.49, 0.54], [-0.72, 0.17, 0.54], [0.17, 0.17, 0.54], [0.17, -0.49, 0.28], [-0.72, -0.49, 0.28], [-0.72, 0.17, 0.28], [0.17, 0.17, 0.28]] are explicitly used for opening actions.",
+        "modified_response": "The hinge door with its bounding box [[-0.52, 0.17, 0.29], [-0.52, -0.49, 0.29], [-0.45, -0.49, -0.57], [-0.45, 0.17, -0.57], [-0.47, 0.17, 0.3], [-0.47, -0.49, 0.3], [-0.39, -0.49, -0.56], [-0.39, 0.17, -0.56]] and the drawer with its bounding box [[0.17, -0.49, 0.54], [-0.72, -0.49, 0.54], [-0.72, 0.17, 0.54], [0.17, 0.17, 0.54], [0.17, -0.49, 0.28], [-0.72, -0.49, 0.28], [-0.72, 0.17, 0.28], [0.17, 0.17, 0.28]] are both explicitly used for opening actions."
+    },
+    {
+        "point": "StorageFurniture_45689_0_3.npy",
+        "question": "Describe the shape of the round fixed handle based on the bounding box coordinates.",
+        "response": "The bounding box of the round fixed handle suggests a low-profile, cylindrical or drum shape.",
+        "modified_response": "The bounding box of the round fixed handle suggests a cylindrical shape with a slight tapering towards the top."
+    },
+    {
+        "point": "Suitcase_101673_0_1.npy",
+        "question": "Which direction do I move to access the revolute handle from the point [-0.62, 0.46, 0.73]?",
+        "response": "To access the revolute handle from the point [-0.62, 0.46, 0.73], you don't need to move as you are already at one corner of the handle bounding box.",
+        "modified_response": "To access the revolute handle from the point [-0.62, 0.46, 0.73], you would move directly towards the center of the bounding box, which is at the point [-0.61, 0.46, 0.67]."
+    },
+    {
+        "point": "WashingMachine_103490_0_3.npy",
+        "question": "For robot interaction, which part of the washing machine is furthest away?",
+        "response": "In terms of the x-axis (which is closer to the robot when the values are smaller), the hinge lid is furthest away. The closest point on the hinge lid along the x-axis is -0.19, which is further away than any of the buttons, whose closest x-axis values start at 0.3.",
+        "modified_response": "In terms of the x-axis, the hinge lid is furthest away. The closest point on the hinge lid along the x-axis is -0.19, which is further away than any of the buttons, whose closest x-axis values start at 0.3."
+    },
+    {
+        "point": "StorageFurniture_49133_0_0.npy",
+        "question": "Which hinge door is located closer to the right side of the model?",
+        "response": "The hinge door located closer to the right side of the model is the lower hinge door, which is indicated by its bounding box points having smaller y-axis values, such as [-0.24, -0.91, 0.35] and [-0.24, -0.91, -0.27].",
+        "modified_response": "The hinge door located closer to the right side of the model is the upper hinge door, which is indicated by its bounding box points having larger y-axis values, such as [-0.77, -0.6, 0.34] and [-0.77, -0.6, -0.32]."
+    },
+    {
+        "point": "Safe_101564_0_0.npy",
+        "question": "Which button is at the bottom right corner when looking straight at the safe?",
+        "response": "The bottom right corner button has a bounding box of [[-0.39, -0.4, -0.03], [-0.42, -0.41, -0.03], [-0.42, -0.41, -0.0], [-0.39, -0.4, -0.0], [-0.39, -0.39, -0.03], [-0.42, -0.41, -0.03], [-0.42, -0.41, -0.0], [-0.39, -0.39, -0.0]].",
+        "modified_response": "The bottom right corner button has a bounding box of [[-0.42, -0.41, -0.03], [-0.42, -0.41, -0.0], [-0.42, -0.41, 0.0], [-0.42, -0.41, 0.03], [-0.42, -0.41, 0.03], [-0.42, -0.41, 0.0], [-0.42, -0.41, 0.03], [-0.42, -0.41, 0.03]]"
+    },
+    {
+        "point": "StorageFurniture_48253_0_0.npy",
+        "question": "Which handle is on the most forward (towards the robot) drawer?",
+        "response": "The most forward handle is the one whose bounding box has the largest x values, corresponding to the most forward drawer with the largest x value in its bounding box.",
+        "modified_response": "The most forward handle is the one whose bounding box has the largest x values, corresponding to the drawer with the largest x value in its bounding box."
+    },
+    {
+        "point": "StorageFurniture_46417_0_0.npy",
+        "question": "If I want to interact with the line fixed handle, which side of the door should I stand?",
+        "response": "You should stand in front of the door, on the side where you can see the highest z-values of the handle, which are around 0.49 to 0.47. This will face you towards the operable part of the handle.",
+        "modified_response": "You should stand in front of the door, on the side where you can see the highest z-values of the handle, which are around 0.54 to 0.52. This will face you towards the operable part of the handle."
+    },
+    {
+        "point": "Table_25308_0_0.npy",
+        "question": "Can you provide me with the bounding box of the leftmost drawer?",
+        "response": "Sure, the leftmost drawer's bounding box is [[-0.55, -0.74, 0.21], [-0.16, -0.74, 0.21], [-0.16, -0.17, 0.21], [-0.55, -0.17, 0.21], [-0.55, -0.74, 0.03], [-0.16, -0.74, 0.03], [-0.16, -0.17, 0.03], [-0.55, -0.17, 0.03]].",
+        "modified_response": "The leftmost drawer's bounding box is [[-0.67, -0.81, 0.18], [-0.19, -0.81, 0.18], [-0.19, -0.13, 0.18], [-0.67, -0.13, 0.18], [-0.67, -0.81, 0.03], [-0.19, -0.81, 0.03], [-0.19, -0.13, 0.03], [-0.67, -0.13, 0.03]]."
+    },
+    {
+        "point": "KitchenPot_100058_0_3.npy",
+        "question": "Which operable part is located closest to the robot?",
+        "response": "The button is located closest to the robot, with the front coordinates ([0.57, -0.25, -0.09], [0.57, -0.28, -0.09], [0.57, -0.28, -0.05], [0.57, -0.25, -0.05]) indicating the largest x values, implying closest proximity to the robot.",
+        "modified_response": "The handle is located closest to the robot, with the front coordinates ([0.48, -0.23, -0.11], [0.48, -0.27, -0.11], [0.48, -0.27, -0.07], [0.48, -0.23, -0.07]) indicating the largest x values, implying closest proximity to the robot."
+    },
+    {
+        "point": "StorageFurniture_45178_0_3.npy",
+        "question": "If I wanted to open the hinge door halfway, what would be the new position of the right-most corner?",
+        "response": "Assuming halfway means a 90-degree opening, the right-most corner of the door would be now positioned towards you or the robot, making the right-most corner have the same y-value but the x-coordinate would be akin to what the z-value was when closed. For example, the top right corner with coordinates [0.0, 0.19, 0.1] when halfway opened would be at an approximate location of [0.1, 0.19, something less than 0.1 depending on the door's pivot radius], but the exact value would depend on the door's pivot point.",
+        "modified_response": "The right-most corner of the door would be positioned at approximately [0.1, 0.19, 0.05] when opened halfway."
+    },
+    {
+        "point": "Door_9070_0_2.npy",
+        "question": "What is the closest edge of the hinge door to the robot?",
+        "response": "The closest edge of the hinge door is defined by the coordinates [[-0.28, 0.15, 0.44], [-0.28, 0.15, -0.31], [-0.0, 0.03, -0.31], [-0.0, 0.03, 0.44]].",
+        "modified_response": "The closest edge of the hinge door to the robot is defined by the coordinates [[-0.25, 0.15, 0.4], [-0.25, 0.15, -0.27], [-0.0, 0.03, -0.27], [-0.0, 0.03, 0.4]]"
+    },
+    {
+        "point": "Toilet_102710_0_2.npy",
+        "question": "What is the height difference between the top and bottom surfaces of the slider lid?",
+        "response": "The height difference between the top and bottom surfaces of the slider lid is calculated by the difference in z-coordinates, which is 0.74 - 0.65, resulting in a difference of 0.09 units.",
+        "modified_response": "The height difference between the top and bottom surfaces of the slider lid is calculated by the difference in z-coordinates, which is 0.65 - 0.74, resulting in a difference of -0.09 units."
+    },
+    {
+        "point": "Refrigerator_12050_0_0.npy",
+        "question": "Can you show me how to access the upper compartment of the refrigerator?",
+        "response": "To access the upper compartment of the refrigerator, locate and open the top hinge door, which has the bounding box [[-0.66, 0.01, 0.31], [-0.66, 0.01, 0.76], [-0.32, -0.47, 0.76], [-0.32, -0.47, 0.31], [-0.64, 0.03, 0.31], [-0.64, 0.03, 0.76], [-0.29, -0.45, 0.76], [-0.29, -0.45, 0.31]]. The larger z-axis values indicate higher placement.",
+        "modified_response": "To access the upper compartment of the refrigerator, locate and open the top hinge door, which has the bounding box [[-0.75, 0.19, 0.34], [-0.75, -0.6, 0.34], [-0.75, -0.6, 0.32], [-0.75, 0.19, 0.32], [-0.69, 0.19, 0.34], [-0.69, -0.6, 0.34], [-0.69, -0.6, 0.32], [-0.69, 0.19, 0.32]] with the larger z-axis values indicating higher placement."
+    },
+    {
+        "point": "Refrigerator_12250_0_1.npy",
+        "question": "What is the most externally positioned part of the refrigerator?",
+        "response": "The most externally positioned part of the refrigerator is the hinge door. Its bounding box is [[-0.46, -0.33, 0.86], [-0.46, -0.33, -0.85], [-0.25, 0.14, -0.85], [-0.25, 0.14, 0.86], [-0.4, -0.36, 0.86], [-0.4, -0.36, -0.85], [-0.19, 0.12, -0.85], [-0.19, 0.12, 0.86]] and it is the part that opens outward allowing access to the interior of the refrigerator.",
+        "modified_response": "The most externally positioned part of the refrigerator is the freezer compartment. Its bounding box is [[-0.46, -0.33, 0.86], [-0.46, -0.33, -0.85], [-0.25, 0.14, -0.85], [-0.25, 0.14, 0.86], [-0.4, -0.36, 0.86], [-0.4, -0.36, -0.85], [-0.19, 0.12, -0.85], [-0.19, 0.12, 0.86]] and it is the part that is typically used for storing frozen foods."
+    },
+    {
+        "point": "StorageFurniture_45725_0_1.npy",
+        "question": "Which hinge door is located the furthest to the right (based on the y coordinate)?",
+        "response": "The right-most hinge door's bounding box is [[-0.29, 0.11, 0.69], [-0.29, 0.11, 0.27], [-0.13, 0.32, 0.27], [-0.13, 0.32, 0.69], [-0.28, 0.11, 0.69], [-0.28, 0.11, 0.27], [-0.13, 0.31, 0.27], [-0.13, 0.31, 0.69]].",
+        "modified_response": "The left-most hinge door's bounding box is [[-0.69, 0.11, 0.27], [-0.69, 0.11, 0.13], [-0.13, 0.32, 0.13], [-0.13, 0.32, 0.27], [-0.68, 0.11, 0.13], [-0.68, 0.11, 0.27], [-0.13, 0.31, 0.13], [-0.13, 0.31, 0.27]]."
+    },
+    {
+        "point": "Table_19179_0_1.npy",
+        "question": "How far to the left from the robot's center is the drawer's rightmost part?",
+        "response": "The drawer's rightmost part has a y-coordinate value of -0.6, which means it is 0.6 units to the left of the robot's center.",
+        "modified_response": "The drawer's rightmost part has a y-coordinate value of -0.7, which means it is 0.7 units to the left of the robot's center."
+    },
+    {
+        "point": "Oven_102044_0_0.npy",
+        "question": "Can the hinge door be opened without using the line fixed handle?",
+        "response": "No, typically the line fixed handle is used to open the hinge door. It is designed to be grasped and pulled to allow the door to swing open along its hinges.",
+        "modified_response": "Yes, the hinge door can be opened without using the line fixed handle. It can be pushed or pulled from its side to swing open along its hinges."
+    },
+    {
+        "point": "Box_100234_0_0.npy",
+        "question": "Can the hinge lids be simultaneously fully opened without colliding?",
+        "response": "It's not possible to determine if they can be fully opened without colliding just from the bounding boxes because the bounding boxes do not tell us the direction in which the lids open or the full range of motion. To answer this, we would need additional information about the hinge mechanism and the path the lids take when they move.",
+        "modified_response": "Yes, the hinge lids can be simultaneously fully opened without colliding, as they have a clear path to move without intersecting each other."
+    },
+    {
+        "point": "StorageFurniture_48700_0_1.npy",
+        "question": "Is there any overlap between the two hinge doors in terms of their x-axis positioning?",
+        "response": "An overlap in the x-axis would mean there is a range where the x values of both doors intersect. Looking at the x-axis values of the bounding boxes, there is indeed an overlap between the two hinge doors, as the x values for both doors are in the range between -0.66 to -0.15.",
+        "modified_response": "Yes, there is an overlap between the two hinge doors in terms of their x-axis positioning."
+    },
+    {
+        "point": "CoffeeMachine_103038_0_3.npy",
+        "question": "I want to place a custom label on top of the slider lid. What should be the maximum dimensions of the label to not exceed the lid area?",
+        "response": "To not exceed the lid area, the label should have a maximum length (along the y-axis) of 0.22 - (-0.57) = 0.79 units and a max width (along the x-axis) of 1.22 units, as calculated in the previous answer.",
+        "modified_response": "To not exceed the lid area, the label should have a maximum length (along the y-axis) of 0.22 - (-0.57) = 0.79 units and a max width (along the x-axis) of 0.85 units."
+    },
+    {
+        "point": "Door_8997_0_0.npy",
+        "question": "If I'm directly facing the first hinge door, what direction should I move to reach the second hinge door?",
+        "response": "If you are directly facing the first hinge door, you should move to your left to reach the second hinge door, as the y coordinate values indicate that the second one is further to the left side.",
+        "modified_response": "If you are directly facing the first hinge door, you should move to your right to reach the second hinge door, as the y coordinate values indicate that the second one is further to the right side."
+    },
+    {
+        "point": "StorageFurniture_48490_0_0.npy",
+        "question": "If the line fixed handle is for the hinge door, could you describe how they are positioned relative to each other?",
+        "response": "The line fixed handle is positioned close to the edge of the hinge door, likely towards the side opposite the hinges given their relative x, y, and z coordinate values. The handle has smaller x values which suggest it is placed on the forward-facing surface of the door.",
+        "modified_response": "The line fixed handle is positioned on the side of the hinge door, likely towards the center of the door's width, given their relative x, y, and z coordinate values."
+    },
+    {
+        "point": "Oven_101930_0_1.npy",
+        "question": "Can you describe the placement of the hinge door relative to the robot, in terms of the bounding box points?",
+        "response": "The hinge door is placed in front of the robot, with the bounding box points being [[-0.93, -0.16, -0.29], [-0.93, -0.16, 0.4], [-0.32, -0.48, 0.4], [-0.32, -0.48, -0.29], [-0.91, -0.13, -0.29], [-0.91, -0.13, 0.4], [-0.31, -0.46, 0.4], [-0.31, -0.46, -0.29]].",
+        "modified_response": "The hinge door is placed directly in front of the robot, with the bounding box points being [[-0.93, -0.16, -0.29], [-0.93, -0.16, 0.4], [-0.32, -0.48, 0.4], [-0.32, -0.48, -0.29], [-0.91, -0.13, -0.29], [-0.91, -0.13, 0.4], [-0.31, -0.46, 0.4], [-0.31, -0.46, -0.29]]."
+    },
+    {
+        "point": "Laptop_10101_0_0.npy",
+        "question": "Which direction should the robot move to be directly above the center of the hinge lid?",
+        "response": "To be directly above the center of the hinge lid, the robot should move backward along the x-axis and towards the right along the y-axis. The approximate central point of the hinge lid could be found by averaging the x and y values of all the points provided, which would be roughly at x = (0.72 + 0.03) / 2 and y = (0.49 + (-0.61)) / 2.",
+        "modified_response": "To be directly above the center of the hinge lid, the robot should move forward along the y-axis and towards the left along the x-axis. The approximate central point of the hinge lid could be found by averaging the x and y values of all the points provided, which would be roughly at x = (0.03 + 0.72) / 2 and y = (-0.61 + 0.49) / 2."
+    },
+    {
+        "point": "Table_34178_0_3.npy",
+        "question": "Which part would be encountered first by the robot moving in a straight line from its current position with increasing x-axis values?",
+        "response": "The first part encountered by the robot as it moves with increasing x-axis values would be the line fixed handle with coordinates at [[-0.41, -0.48, 0.16], [-0.41, -0.48, 0.27], [-0.41, -0.5, 0.27], [-0.41, -0.5, 0.16], [-0.37, -0.48, 0.16], [-0.37, -0.48, 0.27], [-0.37, -0.5, 0.27], [-0.37, -0.5, 0.16]] since it has the least negative x-axis values.",
+        "modified_response": "The first part encountered by the robot as it moves with increasing x-axis values would be the line fixed handle with coordinates at [[-0.37, -0.48, 0.16], [-0.37, -0.48, 0.27], [-0.37, -0.5, 0.27], [-0.37, -0.5, 0.16], [-0.31, -0.48, 0.16], [-0.31, -0.48, 0.27], [-0.31, -0.5, 0.27], [-0.31, -0.5, 0.16]] since it has the least negative x-axis values."
+    },
+    {
+        "point": "StorageFurniture_46197_0_2.npy",
+        "question": "I need a part that can swing open and closed, which part should I look for?",
+        "response": "You should look for the hinge door; a part that can swing open and close, with the bounding box [ [-0.3, 0.1, -0.9], [-0.3, 0.1, 0.91], [-0.25, -0.38, 0.91], [-0.25, -0.38, -0.9], [-0.29, 0.1, -0.9], [-0.29, 0.1, 0.91], [-0.23, -0.38, 0.91], [-0.23, -0.38, -0.9] ].",
+        "modified_response": "You should look for the hinge door; a part that can swing open and close, with the bounding box [ [-0.3, 0.1, -0.9], [-0.3, 0.1, 0.91], [-0.25, -0.38, 0.91], [-0.25, -0.38, -0.9], [-0.29, 0.1, -0.9], [-0.29, 0.1, 0.91], [-0.23, -0.38, 0.91], [-0.23, -0.38, -0.9] ]."
+    },
+    {
+        "point": "StorageFurniture_47729_0_1.npy",
+        "question": "Where is the hinge door located in the storage furniture model?",
+        "response": "The hinge door's bounding box is located at [[-0.42, -0.92, -0.11], [-0.42, 0.56, -0.11], [-0.16, 0.56, 0.2], [-0.16, -0.92, 0.2], [-0.41, -0.92, -0.12], [-0.41, 0.56, -0.12], [-0.14, 0.56, 0.19], [-0.14, -0.92, 0.19]].",
+        "modified_response": "The hinge door's bounding box is located at [[-0.42, -0.92, -0.11], [-0.42, 0.56, -0.11], [-0.16, 0.56, 0.2], [-0.16, -0.92, 0.2], [-0.41, -0.92, -0.12], [-0.41, 0.56, -0.12], [-0.14, 0.56, 0.19], [-0.14, -0.92, 0.19]]."
+    },
+    {
+        "point": "Suitcase_101673_0_1.npy",
+        "question": "If I'm positioned at [-0.03, 0.46, 0.21], and I want to touch the highest point of the revolute handle, in which direction should I move?",
+        "response": "To touch the highest point of the revolute handle from [-0.03, 0.46, 0.21], you should move to [0.04, 0.46, 0.29].",
+        "modified_response": "To touch the highest point of the revolute handle from [-0.03, 0.46, 0.21], you should move to [0.01, 0.46, 0.29]."
+    },
+    {
+        "point": "Dishwasher_11622_0_3.npy",
+        "question": "Where is the hinge door located relative to the dishwasher?",
+        "response": "The hinge door is part of the dishwasher and its bounding box suggests that it is in the lower front because the z-axis values are positive (indicating height from the ground) and the x-axis values are negative (indicating closeness to the robot). The y-axis spans from positive to negative values, indicating width.",
+        "modified_response": "The hinge door is located at the bottom front of the dishwasher."
+    },
+    {
+        "point": "StorageFurniture_46132_0_1.npy",
+        "question": "To touch the highest point on the fixed handle, what z-axis position should the robot reach?",
+        "response": "The highest point on the fixed handle is at z-axis position -0.29.",
+        "modified_response": "The highest point on the fixed handle is at z-axis position -0.32."
+    },
+    {
+        "point": "TrashCan_102187_0_1.npy",
+        "question": "If the robot wants to interact with the top of the hinge door, at what z-coordinate should its end effector be positioned?",
+        "response": "The robot's end effector should be positioned at the maximum z-coordinate of the hinge door, which is 0.65 units.",
+        "modified_response": "The robot's end effector should be positioned at the maximum z-coordinate of the hinge door, which is 0.85 units."
+    },
+    {
+        "point": "Toilet_103233_0_0.npy",
+        "question": "Which direction should I press to activate the 'button'?",
+        "response": "Given that the z-axis indicates height with larger values being higher up, you should press the 'button' downwards along the negative z-axis.",
+        "modified_response": "Given that the z-axis indicates height with larger values being higher up, you should press the 'button' upwards along the positive z-axis."
+    },
+    {
+        "point": "StorageFurniture_46132_0_3.npy",
+        "question": "What is the correct orientation of the handle based on its bounding box coordinates?",
+        "response": "The handle is positioned vertically, as indicated by the y-axis values, with the higher value of -0.23 indicating the top of the handle and the lower value of -0.66 indicating the bottom. The x-axis and z-axis values suggest it is relatively thin and aligned along the depth of the furniture, with -0.35 and -0.28 representing its thinness across the x-axis and -0.35 and -0.37 representing a slight depth on the z-axis.",
+        "modified_response": "The handle is positioned horizontally, as indicated by the x-axis values, with the higher value of -0.35 indicating the left of the handle and the lower value of -0.66 indicating the right. The y-axis and z-axis values suggest it is relatively thin and aligned along the width of the furniture, with -0.23 and -0.28 representing its thinness across the y-axis and -0.35 and -0.37 representing a slight depth on the z-axis."
+    },
+    {
+        "point": "StorageFurniture_45594_0_1.npy",
+        "question": "Where is the line fixed handle located in relation to the hinge door with the lower z-axis values in its bounding box coordinates?",
+        "response": "The line fixed handle is located on the front of the hinge door with lower z-axis values, between the z-axis coordinates -0.42 and -0.09.",
+        "modified_response": "The line fixed handle is located on the front of the hinge door with lower z-axis values, between the z-axis coordinates -0.38 and -0.09."
+    },
+    {
+        "point": "KitchenPot_100015_0_3.npy",
+        "question": "Which line fixed handle is positioned closest to the front when facing the kitchenpot directly from the front?",
+        "response": "The line fixed handle positioned closest to the front when facing the kitchenpot directly is the one with the bounding box coordinates at [[-0.25, -0.95, 0.27], [0.19, -0.95, 0.27], [0.19, -0.95, 0.04], [-0.25, -0.95, 0.04], [-0.25, -0.67, 0.27], [0.19, -0.67, 0.27], [0.19, -0.67, 0.04], [-0.25, -0.67, 0.04]]. It has the least positive y-value, which indicates it is further to the left when facing the pot's front.",
+        "modified_response": "The line fixed handle positioned closest to the front when facing the kitchenpot directly is the one with the bounding box coordinates at [[-0.25, -0.95, 0.27], [0.19, -0.95, 0.27], [0.19, -0.95, 0.04], [-0.25, -0.95, 0.04], [-0.25, -0.67, 0.27], [0.19, -0.67, 0.27], [0.19, -0.67, 0.04], [-0.25, -0.67, 0.04]] and it has the least positive y-value, indicating it is further to the left when facing the pot's front."
+    },
+    {
+        "point": "Refrigerator_11231_0_0.npy",
+        "question": "If the robot is positioned directly in front of the upper hinge door, is the lower hinge door to its left or right?",
+        "response": "If the robot is positioned directly in front of the upper hinge door, the lower hinge door is to its right, as indicated by the negative y-axis values of the lower hinge door's bounding box.",
+        "modified_response": "If the robot is positioned directly in front of the upper hinge door, the lower hinge door is to its left, as indicated by the positive y-axis values of the lower hinge door's bounding box."
+    },
+    {
+        "point": "Bucket_100473_0_0.npy",
+        "question": "If the robot arm has a vertical limitation of reaching only up to 0.5 units in the z-axis, can it still grasp the revolute handle?",
+        "response": "No, the robot arm cannot grasp the revolute handle as its lowest z-value is 0.52, which is just above the robot arm's vertical limitation of 0.5 units.",
+        "modified_response": "Yes, the robot arm can grasp the revolute handle as its lowest z-value is 0.48, which is below the robot arm's vertical limitation of 0.5 units."
+    },
+    {
+        "point": "StorageFurniture_45194_0_2.npy",
+        "question": "I want to place a wide book. Which drawer would be more suitable?",
+        "response": "The drawer more suitable for placing a wide book is [[0.01, -0.73, 0.44], [-0.55, -0.73, 0.44], [-0.55, -0.21, 0.44], [0.01, -0.21, 0.44], [0.01, -0.73, 0.26], [-0.55, -0.73, 0.26], [-0.55, -0.21, 0.26], [0.01, -0.21, 0.26]], as it has a wider y-axis range, indicating a larger space from left to right.",
+        "modified_response": "The drawer with the bounding box [[0.01, -0.73, 0.44], [-0.55, -0.73, 0.44], [-0.55, -0.21, 0.44], [0.01, -0.21, 0.44], [0.01, -0.73, 0.26], [-0.55, -0.73, 0.26], [-0.55, -0.21, 0.26], [0.01, -0.21, 0.26]] would be more suitable for placing a wide book due to its wider y-axis range."
+    },
+    {
+        "point": "Toilet_102664_0_3.npy",
+        "question": "Can the slider lid be moved to partially cover the toilet?",
+        "response": "Yes, the slider lid can be moved to partially cover the toilet by sliding it to your desired position.",
+        "modified_response": "Yes, the slider lid can be moved to partially cover the toilet by sliding it to your desired position."
+    },
+    {
+        "point": "Oven_101930_0_3.npy",
+        "question": "How many knobs are there on the oven?",
+        "response": "There are 6 knobs on the oven.",
+        "modified_response": "There are 8 knobs on the oven."
+    },
+    {
+        "point": "TrashCan_101377_0_1.npy",
+        "question": "How high is the trashcan's hinge lid's top edge from the ground?",
+        "response": "Assuming the ground is at z = 0, the top edge of the trashcan's hinge lid from the ground is at z = 0.58, taken from the coordinates [-0.34, -0.45, 0.58] and [-0.34, 0.17, 0.58].",
+        "modified_response": "Assuming the ground is at z = 0, the top edge of the trashcan's hinge lid from the ground is at z = 0.65, taken from the coordinates [-0.31, -0.45, 0.65] and [-0.31, 0.17, 0.65]."
+    },
+    {
+        "point": "TrashCan_102155_0_1.npy",
+        "question": "Where is the hinge lid located in relation to the robot?",
+        "response": "The hinge lid of the trashcan is closer to the robot (larger x values), to the left (negative y values), and is raised up from the base (positive z values).",
+        "modified_response": "The hinge lid of the trashcan is closer to the robot (larger x values), to the right (positive y values), and is raised up from the base (positive z values)."
+    },
+    {
+        "point": "Box_100234_0_3.npy",
+        "question": "Which hinge lid is wider along the y-axis?",
+        "response": "The second hinge lid is wider along the y-axis as it extends from y = -0.91 to y = -0.58, a span wider than the first hinge lid which goes from y = 0.16 to y = 0.25.",
+        "modified_response": "The third hinge lid is wider along the y-axis as it extends from y = -1.01 to y = -0.68, a span wider than the first and second hinge lids which go from y = 0.16 to y = 0.25 and y = -0.91 to y = -0.58, respectively."
+    },
+    {
+        "point": "TrashCan_103008_0_2.npy",
+        "question": "Is the hinge door of the trashcan currently facing the robot or away from it?",
+        "response": "The hinge door of the trashcan, based on the coordinates provided, has dimensions in the x-axis from -0.92 to -0.26. Since a larger x value indicates that the point is closer to the robot, the part of the door at x = -0.26 is closer to the robot than the part at x = -0.92, meaning the door is facing towards the robot.",
+        "modified_response": "The hinge door of the trashcan, based on the coordinates provided, has dimensions in the x-axis from -0.92 to -0.26. Since a larger x value indicates that the point is closer to the robot, the part of the door at x = -0.26 is closer to the robot than the part at x = -0.92, meaning the door is facing towards the robot."
+    },
+    {
+        "point": "Table_22433_0_1.npy",
+        "question": "Which of the hinge doors appears to be the narrowest based on the y-axis dimensions?",
+        "response": "The hinge door that appears to be the narrowest based on the y-axis dimensions is the one with the bounding box [[0.22, -0.39, -0.43], [0.22, -0.04, -0.43], [0.23, -0.04, 0.34], [0.23, -0.39, 0.34], [0.27, -0.39, -0.43], [0.27, -0.04, -0.43], [0.28, -0.04, 0.34], [0.28, -0.39, 0.34]] with a width of 0.35 (0.39 - (-0.04)).",
+        "modified_response": "The hinge door with the bounding box [[0.15, -0.40, -0.45], [0.15, -0.04, -0.45], [0.16, -0.04, 0.34], [0.16, -0.40, 0.34], [0.20, -0.40, -0.45], [0.20, -0.04, -0.45], [0.21, -0.04, 0.34], [0.21, -0.40, 0.34]] has the narrowest width based on the y-axis dimensions, with a width of 0.33 (0.34 - (-0.04))."
+    },
+    {
+        "point": "Box_102373_0_0.npy",
+        "question": "Where is the front-facing hinge lid located, with the assumption that the front is in the negative y-axis direction from my viewing point?",
+        "response": "The front-facing hinge lid is located at the bounding box: [[-0.41, -0.61, 0.56], [0.33, -0.61, 0.56], [0.33, -0.67, 0.19], [-0.41, -0.67, 0.19], [-0.41, -0.59, 0.56], [0.33, -0.59, 0.56], [0.33, -0.65, 0.19], [-0.41, -0.65, 0.19]].",
+        "modified_response": "The front-facing hinge lid is located at the bounding box: [[-0.41, -0.61, 0.56], [0.33, -0.61, 0.56], [0.33, -0.67, 0.19], [-0.41, -0.67, 0.19], [-0.41, -0.59, 0.56], [0.33, -0.59, 0.56], [0.33, -0.65, 0.19], [-0.41, -0.65, 0.19]]."
+    },
+    {
+        "point": "Toilet_102675_0_2.npy",
+        "question": "How many hinge lids are there on the toilet?",
+        "response": "There are two hinge lids on the toilet.",
+        "modified_response": "There are three hinge lids on the toilet."
+    },
+    {
+        "point": "StorageFurniture_45687_0_0.npy",
+        "question": "What is the bounding box of the hinge door?",
+        "response": "The hinge door's bounding box is [[-0.37, 0.37, -0.36], [-0.37, 0.37, 0.28], [-0.33, -0.12, 0.28], [-0.33, -0.12, -0.36], [-0.35, 0.38, -0.36], [-0.35, 0.38, 0.28], [-0.31, -0.12, 0.28], [-0.31, -0.12, -0.36]].",
+        "modified_response": "The hinge door's bounding box is [[-0.37, 0.37, -0.36], [-0.37, 0.37, 0.28], [-0.33, -0.12, 0.28], [-0.33, -0.12, -0.36], [-0.35, 0.38, -0.36], [-0.35, 0.38, 0.28], [-0.31, -0.12, 0.28], [-0.31, -0.12, -0.36]]."
+    },
+    {
+        "point": "Refrigerator_10144_0_2.npy",
+        "question": "Can you tell the width of the refrigerator's hinge door?",
+        "response": "The width of the hinge door is the distance along the y-axis, from the most left to the most right point. It is the absolute difference between 0.11 and -0.42, which is 0.11 - (-0.42) = 0.53 units.",
+        "modified_response": "The width of the hinge door is the distance along the y-axis, from the most left to the most right point. It is the absolute difference between 0.11 and -0.42, which is 0.11 - (-0.42) = 0.53 units."
+    },
+    {
+        "point": "Toilet_101319_0_0.npy",
+        "question": "What is the closest point of the slider lid to the robot?",
+        "response": "The closest point of the slider lid to the robot is at [0.47, -0.49, 0.76] and [0.47, 0.29, 0.76].",
+        "modified_response": "The closest point of the slider lid to the robot is at [0.47, 0.29, 0.76]."
+    },
+    {
+        "point": "Refrigerator_12050_0_1.npy",
+        "question": "To pull the upper door open toward me, in which direction should I pull the handle?",
+        "response": "To pull the upper door open towards you, since the larger x values indicate closeness, you should pull the handle in the positive x-axis direction, effectively moving the door towards the larger x-axis values from its hinge.",
+        "modified_response": "To pull the upper door open towards you, you should pull the handle in the negative x-axis direction, effectively moving the door away from its hinge."
+    },
+    {
+        "point": "Oven_101908_0_1.npy",
+        "question": "Which hinge door is closest to the ground (lowest z value)?",
+        "response": "The hinge door with the lowest z value is [[-0.65, -0.47, -0.06], [-0.65, -0.77, -0.06], [-0.23, -0.77, -0.29], [-0.23, -0.47, -0.29], [-0.64, -0.47, -0.05], [-0.64, -0.77, -0.05], [-0.22, -0.77, -0.28], [-0.22, -0.47, -0.28]].",
+        "modified_response": "The hinge door with the lowest z value is [[-0.65, -0.47, -0.06], [-0.65, -0.77, -0.06], [-0.23, -0.77, -0.29], [-0.23, -0.47, -0.29], [-0.64, -0.47, -0.05], [-0.64, -0.77, -0.05], [-0.22, -0.77, -0.28], [-0.22, -0.47, -0.28]]."
+    },
+    {
+        "point": "Bucket_100454_0_3.npy",
+        "question": "Can you list the coordinates of the point on the left side of the revolute handle?",
+        "response": "The point on the left side of the revolute handle is at the lowest y-axis value, which is -0.81. The left-most points are [-0.62, -0.81, 0.7], [-0.61, -0.81, 0.73], [-0.05, -0.81, 0.45], and [-0.04, -0.81, 0.47].",
+        "modified_response": "The point on the left side of the revolute handle is at the lowest y-axis value, which is -0.75. The left-most points are [-0.62, -0.75, 0.7], [-0.61, -0.75, 0.73], [-0.05, -0.75, 0.45], and [-0.04, -0.75, 0.47]."
+    },
+    {
+        "point": "TrashCan_102165_0_3.npy",
+        "question": "How high is the hinge lid at its highest point from the base plane (assuming z=0)?",
+        "response": "The height of the hinge lid at its highest point from the base plane is 0.62 units.",
+        "modified_response": "The height of the hinge lid at its highest point from the base plane is 0.83 units."
+    },
+    {
+        "point": "TrashCan_11279_0_3.npy",
+        "question": "What is the highest point of the hinge lid on the trashcan?",
+        "response": "The highest point of the hinge lid is at [-0.41, -0.59, 0.73], which represents the upper left front corner when facing the trashcan.",
+        "modified_response": "The highest point of the hinge lid is at [-0.41, -0.59, 0.73], which represents the upper left front corner when facing the trashcan."
+    },
+    {
+        "point": "Safe_101583_0_2.npy",
+        "question": "Which part of the safe would most likely be used to open the door?",
+        "response": "Most likely, the buttons would be used in some combination or sequence to unlock the hinge door.",
+        "modified_response": "Most likely, the knob would be turned or rotated in some combination or sequence to unlock the hinge door."
+    },
+    {
+        "point": "Bucket_100462_0_0.npy",
+        "question": "Is the revolute handle closer to the robot or farther away based on the x coordinates?",
+        "response": "The revolute handle is closer to the robot, as the x coordinates range from -0.06, indicating a closer position, to 0.11.",
+        "modified_response": "The revolute handle is farther away from the robot, as the x coordinates range from -0.11, indicating a more distant position, to 0.06."
+    },
+    {
+        "point": "Box_102377_0_3.npy",
+        "question": "Which part would be more accessible if the robot's gripper could only move in a straight line from its current position?",
+        "response": "The hinge lid would be more accessible for a straight-line approach, as it is closer to the robot's current position, with the nearest x-axis coordinate being 0.06.",
+        "modified_response": "The top shelf would be more accessible for a straight-line approach, as it is closer to the robot's current position, with the nearest x-axis coordinate being 0.1."
+    },
+    {
+        "point": "StorageFurniture_45749_0_2.npy",
+        "question": "Which hinge door is located the lowest in the z-axis?",
+        "response": "The hinge door located the lowest in the z-axis has its bounding box at [[-0.35, -0.26, -0.59], [-0.35, -0.26, 0.18], [-0.19, -0.71, 0.18], [-0.19, -0.71, -0.59], [-0.34, -0.25, -0.59], [-0.34, -0.25, 0.18], [-0.17, -0.71, 0.18], [-0.17, -0.71, -0.59]].",
+        "modified_response": "The hinge door located the lowest in the z-axis has its bounding box at [[-0.35, -0.26, -0.59], [-0.35, -0.26, 0.18], [-0.19, -0.71, 0.18], [-0.19, -0.71, -0.59], [-0.34, -0.25, -0.59], [-0.34, -0.25, 0.18], [-0.17, -0.71, 0.18], [-0.17, -0.71, -0.59]]."
+    },
+    {
+        "point": "StorageFurniture_41086_0_2.npy",
+        "question": "What is the approximate center point coordinates of the hinge door?",
+        "response": "The approximate center point of the hinge door can be calculated by averaging the coordinates of its bounding box. ([-0.94, -0.0, -0.41] + [-0.05, -0.63, 0.13]) / 2 = [(-0.94 - 0.05) / 2, (-0.0 - 0.63) / 2, (-0.41 + 0.13) / 2] = [-0.995 / 2, -0.63 / 2, -0.28 / 2] = [-0.4975, -0.315, -0.14].",
+        "modified_response": "The approximate center point coordinates of the hinge door are [-0.4975, -0.315, -0.14]."
+    },
+    {
+        "point": "Toilet_102625_0_1.npy",
+        "question": "What would be the best way to grasp the slider lid to open it?",
+        "response": "To grasp the slider lid, the robot should position its manipulator around the center of the lid by averaging the x, y, and z coordinates of the bounding box to get the central point, and apply a lifting force since it slides up, indicated by larger z values suggesting that it operates vertically.",
+        "modified_response": "To grasp the slider lid, the robot should position its manipulator around the center of the lid by averaging the x, y, and z coordinates of the bounding box to get the central point, and apply a rotational force around the pivot point, indicated by the larger z values suggesting that it operates vertically."
+    },
+    {
+        "point": "Safe_101613_0_1.npy",
+        "question": "Between the hinge door and hinge knob, which component is positioned higher?",
+        "response": "They are positioned approximately at the same height considering their z-value, with the hinge door's highest point at 0.26 and the hinge knob's highest point at 0.16.",
+        "modified_response": "The hinge door is positioned higher than the hinge knob, with its highest point at 0.26 and the hinge knob's highest point at 0.16."
+    },
+    {
+        "point": "Oven_101930_0_0.npy",
+        "question": "If the robot has to activate the hinge knob second from the bottom on the right-hand side, which bounding box is to be used?",
+        "response": "Assuming \"right-hand side\" refers to larger y-values when facing the oven, the hinge knob second from the bottom on the right-hand side has the bounding box of [[-0.36, -0.01, 0.4], [-0.36, -0.01, 0.47], [-0.36, 0.06, 0.48], [-0.36, 0.06, 0.41], [-0.32, -0.01, 0.4], [-0.32, -0.01, 0.47], [-0.32, 0.06, 0.48], [-0.32, 0.06, 0.41]].",
+        "modified_response": "If the robot has to activate the hinge knob second from the bottom on the right-hand side, it should use the bounding box of [[-0.36, -0.01, 0.4], [-0.36, -0.01, 0.47], [-0.36, 0.06, 0.48], [-0.36, 0.06, 0.41], [-0.32, -0.01, 0.4], [-0.32, -0.01, 0.47], [-0.32, 0.06, 0.48], [-0.32, 0.06, 0.41]]."
+    },
+    {
+        "point": "StorageFurniture_41003_0_3.npy",
+        "question": "What are the coordinates of the upper right front corner of the rightmost hinge door when facing the storage furniture?",
+        "response": "The upper right front corner of the rightmost hinge door when facing the storage furniture is [-0.1, 0.2, 0.2] as per the perspective described.",
+        "modified_response": "The upper right front corner of the rightmost hinge door when facing the storage furniture is [-0.1, 0.1, 0.2] as per the perspective described."
+    },
+    {
+        "point": "StorageFurniture_45505_0_3.npy",
+        "question": "Which handle should I pull to open the hinge door that is closer to the ground?",
+        "response": "The handle that should be pulled to open the lower hinge door is the round fixed handle with the bounding box [[-0.72, -0.55, 0.43], [-0.68, -0.56, 0.43], [-0.68, -0.56, 0.4], [-0.72, -0.55, 0.4], [-0.71, -0.51, 0.43], [-0.67, -0.53, 0.43], [-0.67, -0.53, 0.4], [-0.71, -0.51, 0.4]], as the corresponding hinge door's lower z-axis value is closer to the negative extent.",
+        "modified_response": "The handle that should be pulled to open the hinge door that is closer to the ground is the round fixed handle with the bounding box [[-0.72, -0.55, 0.43], [-0.68, -0.56, 0.43], [-0.68, -0.56, 0.4], [-0.72, -0.55, 0.4], [-0.71, -0.51, 0.43], [-0.67, -0.53, 0.43], [-0.67, -0.53, 0.4], [-0.71, -0.51, 0.4]], as the corresponding hinge door's lower z-axis value is closer to the negative extent."
+    },
+    {
+        "point": "StorageFurniture_46166_0_2.npy",
+        "question": "Which door handle is closer to the ground?",
+        "response": "In order to determine which door handle is closer to the ground, we need to compare their lowest Z-axis values. The first line fixed handle has a lowest Z value of -0.07, while the second has a lowest Z value of 0.1. Therefore, the first line fixed handle is closer to the ground.",
+        "modified_response": "The first line fixed handle is closer to the ground, as it has a lowest Z-axis value of -0.07."
+    },
+    {
+        "point": "StorageFurniture_45948_0_2.npy",
+        "question": "Which drawer handle is positioned the furthest on the left side?",
+        "response": "The drawer handle furthest to the left is the one with the smallest y-coordinate values across all handles. The handle with the bounding box [[-0.3, -0.62, 0.3], [-0.3, -0.49, 0.3], [-0.3, -0.49, 0.29], [-0.3, -0.62, 0.29], [-0.27, -0.62, 0.3], [-0.27, -0.49, 0.3], [-0.27, -0.49, 0.29], [-0.27, -0.62, 0.29]] is positioned the furthest on the left side.",
+        "modified_response": "The drawer handle furthest to the left is the one with the smallest y-coordinate values across all handles. The handle with the bounding box [[-0.3, -0.62, 0.3], [-0.3, -0.49, 0.3], [-0.3, -0.49, 0.29], [-0.3, -0.62, 0.29], [-0.27, -0.62, 0.3], [-0.27, -0.49, 0.3], [-0.27, -0.49, 0.29], [-0.27, -0.62, 0.29]] is positioned the furthest on the left side."
+    },
+    {
+        "point": "KitchenPot_100045_0_2.npy",
+        "question": "How do I locate the round fixed handle when I am standing in front of the kitchen pot?",
+        "response": "When standing in front of the kitchen pot, the round fixed handle can be located at the center of the front side. You can recognize it by its circular shape and by its bounding box with coordinates such as [0.04, -0.33, 0.58] that indicate its central position in terms of the y-axis.",
+        "modified_response": "When standing in front of the kitchen pot, the round fixed handle can be located at the center of the front side. You can recognize it by its circular shape and by its bounding box with coordinates such as [0.14, -0.33, 0.58] that indicate its central position in terms of the y-axis."
+    },
+    {
+        "point": "StorageFurniture_45948_0_0.npy",
+        "question": "How many line fixed handles are attached to the drawers?",
+        "response": "There are two line fixed handles attached to the drawers with their bounding boxes as follows: [[-0.31, -0.61, 0.38], [-0.31, -0.78, 0.38], [-0.31, -0.78, 0.36], [-0.31, -0.61, 0.36], [-0.27, -0.61, 0.38], [-0.27, -0.78, 0.38], [-0.27, -0.78, 0.36], [-0.27, -0.61, 0.36]] for one drawer and [[-0.29, 0.33, 0.38], [-0.29, 0.16, 0.38], [-0.29, 0.16, 0.36], [-0.29, 0.33, 0.36], [-0.25, 0.33, 0.38], [-0.25, 0.16, 0.38], [-0.25, 0.16, 0.36], [-0.25, 0.33, 0.36]] for the other drawer.",
+        "modified_response": "There are three line fixed handles attached to the drawers with their bounding boxes as follows: [[-0.31, -0.61, 0.38], [-0.31, -0.78, 0.38], [-0.31, -0.78, 0.36], [-0.31, -0.61, 0.36], [-0.27, -0.61, 0.38], [-0.27, -0.78, 0.38], [-0.27, -0.78, 0.36], [-0.27, -0.61, 0.36]] for one drawer and [[-0.29, 0.33, 0.38], [-0.29, 0.16, 0.38], [-0.29, 0.16, 0.36], [-0.29, 0.33, 0.36], [-0.25, 0.33, 0.38], [-0.25, 0.16, 0.38], [-0.25, 0.16, 0.36], [-0.25, 0.33, 0.36]] for the other drawer."
+    },
+    {
+        "point": "Suitcase_103762_0_3.npy",
+        "question": "Can you open the hinge lid for packing?",
+        "response": "Sure! The hinge lid's bounding box is [[-0.41, 0.51, -0.49], [-0.41, -0.69, -0.49], [0.19, -0.69, -0.09], [0.19, 0.51, -0.09], [-0.46, 0.51, -0.43], [-0.46, -0.69, -0.43], [0.14, -0.69, -0.02], [0.14, 0.51, -0.02]].",
+        "modified_response": "Certainly! The hinge lid's bounding box is [[-0.41, 0.51, -0.49], [-0.41, -0.69, -0.49], [0.19, -0.69, -0.09], [0.19, 0.51, -0.09], [-0.46, 0.51, -0.43], [-0.46, -0.69, -0.43], [0.14, -0.69, -0.02], [0.14, 0.51, -0.02]]."
+    },
+    {
+        "point": "Refrigerator_12042_0_1.npy",
+        "question": "If I want to inspect the bottom hinge on the door, which coordinates should I look at?",
+        "response": "To inspect the bottom hinge, you need to look at the following coordinates with the lower z value (since they represent a position lower or at the bottom side): [-0.59, -0.09, -0.81], [-0.11, 0.1, -0.81], [-0.59, -0.09, -0.81], and [-0.11, 0.1, -0.81].",
+        "modified_response": "To inspect the bottom hinge, you need to look at the following coordinates with the lower z value: [-0.75, -0.19, -0.34], [-0.75, -0.6, -0.32], [-0.75, 0.19, -0.32], and [-0.75, 0.6, -0.34]."
+    },
+    {
+        "point": "StorageFurniture_48253_0_2.npy",
+        "question": "Which drawer is located closest to the robot?",
+        "response": "The closest drawer to the robot has a bounding box of [[0.11, -0.66, -0.06], [-0.44, -0.66, -0.06], [-0.44, 0.25, -0.06], [0.11, 0.25, -0.06], [0.11, -0.66, -0.45], [-0.44, -0.66, -0.45], [-0.44, 0.25, -0.45], [0.11, 0.25, -0.45]], with the largest x-coordinate values.",
+        "modified_response": "The closest drawer to the robot has a bounding box of [[0.07, -0.69, -0.05], [-0.39, -0.69, -0.05], [-0.39, 0.21, -0.05], [0.07, 0.21, -0.05], [0.07, -0.69, -0.45], [-0.39, -0.69, -0.45], [-0.39, 0.21, -0.45], [0.07, 0.21, -0.45]], with the largest x-coordinate values."
+    },
+    {
+        "point": "Laptop_11156_0_0.npy",
+        "question": "What is the direction in which the hinge lid opens on the laptop?",
+        "response": "The hinge lid opens from the z-axis (0.55 to -0.19) towards the x-axis (-0.27 to 0.48), indicating it flips upwards and away from the user.",
+        "modified_response": "The hinge lid opens from the z-axis (0.45 to -0.32) towards the y-axis (-0.18 to 0.31), indicating it flips upwards and towards the user."
+    },
+    {
+        "point": "Table_19179_0_3.npy",
+        "question": "Which drawer is situated on the right when looking from the robot's perspective?",
+        "response": "The drawer situated on the right when looking from the robot's perspective is the one with the bounding box at [[0.25, -0.55, 0.36], [-0.46, -0.55, 0.36], [-0.46, 0.19, 0.36], [0.25, 0.19, 0.36], [0.25, -0.55, 0.03], [-0.46, -0.55, 0.03], [-0.46, 0.19, 0.03], [0.25, 0.19, 0.03]].",
+        "modified_response": "The drawer situated on the right when looking from the robot's perspective is the one with the bounding box at [[0.25, -0.55, 0.36], [-0.46, -0.55, 0.36], [-0.46, 0.19, 0.36], [0.25, 0.19, 0.36], [0.25, -0.55, 0.03], [-0.46, -0.55, 0.03], [-0.46, 0.19, 0.03], [0.25, 0.19, 0.03]]."
+    },
+    {
+        "point": "Safe_102278_0_2.npy",
+        "question": "How do I position myself to open the hinge door?",
+        "response": "To position yourself to open the hinge door, you should stand closer to the point [-0.89, 0.04, -0.52] or [-0.85, 0.07, -0.52], where the handle or opening mechanism is likely to be located, which on the robot's left and at a reachable height since the z-values are not too far from ground level.",
+        "modified_response": "To position yourself to open the hinge door, you should stand closer to the point [-0.89, 0.04, -0.52] or [-0.85, 0.07, -0.52], where the handle or opening mechanism is likely to be located, which is on the robot's left and at a reachable height since the z-values are not too far from ground level."
+    },
+    {
+        "point": "StorageFurniture_46134_0_1.npy",
+        "question": "How many line fixed handles are there in the 3D model?",
+        "response": "There are 2 line fixed handles in the 3D model.",
+        "modified_response": "There are 3 line fixed handles in the 3D model."
+    },
+    {
+        "point": "Toilet_102663_0_2.npy",
+        "question": "To ensure privacy, which part should I close first?",
+        "response": "To ensure privacy, you should close the slider lid first, as it covers the bowl directly. The corresponding bounding box for closing would be the one initially provided for the slider lid.",
+        "modified_response": "To ensure privacy, you should close the top shelf first, as it covers the bowl indirectly. The corresponding bounding box for closing would be the one initially provided for the top shelf."
+    },
+    {
+        "point": "Camera_102876_0_0.npy",
+        "question": "Can you provide the spatial relationship between the button and the hinge knob?",
+        "response": "The button is located lower (based on the y-axis values) and to the right (if facing the camera front) compared to the hinge knob. They are in separate areas, with the button most likely positioned on the main body of the camera, and the hinge knob located in an area that facilitates angular adjustment.",
+        "modified_response": "The button is positioned above and slightly to the left of the hinge knob, suggesting a hierarchical arrangement with the button being more prominent or accessible."
+    },
+    {
+        "point": "Table_26670_0_0.npy",
+        "question": "How much space is available in depth for storing items in the drawer (from front to back)?",
+        "response": "The space available in depth for storing items in the drawer is from coordinate [-0.12, -0.59, -0.02] to [-0.12, -0.59, 0.24], which is 0.26m (calculated from 0.24 minus -0.02 on the z-axis).",
+        "modified_response": "The space available in depth for storing items in the drawer is from coordinate [-0.12, -0.59, -0.02] to [-0.12, -0.59, 0.26], which is 0.24m (calculated from 0.26 minus -0.02 on the z-axis)."
+    },
+    {
+        "point": "StorageFurniture_47686_0_1.npy",
+        "question": "On the hinge door, where is the line fixed handle located?",
+        "response": "The line fixed handle is located on the lower left side of the hinge door when facing the door. This conclusion is based on comparing the y-values of the handle and door bounding boxes, which indicate that the handle is more to the robot's right compared to the lower edge of the door, and the z-values which suggest that it is slightly higher from the bottom.",
+        "modified_response": "The line fixed handle is located on the upper right side of the hinge door when facing the door."
+    },
+    {
+        "point": "Safe_101612_0_1.npy",
+        "question": "Where can I find the hinge knob which is used to open the hinge door?",
+        "response": "The hinge knob is positioned at the following bounding box coordinates: [[-0.82, 0.06, -0.05], [-0.75, 0.07, -0.01], [-0.79, 0.06, 0.06], [-0.86, 0.05, 0.02], [-0.82, 0.04, -0.05], [-0.75, 0.05, -0.01], [-0.78, 0.04, 0.06], [-0.86, 0.03, 0.02]].",
+        "modified_response": "The hinge knob is positioned at the following bounding box coordinates: [[-0.82, 0.14, -0.05], [-0.75, 0.15, -0.01], [-0.79, 0.14, 0.06], [-0.86, 0.13, 0.02], [-0.82, 0.11, -0.05], [-0.75, 0.12, -0.01], [-0.78, 0.11, 0.06], [-0.86, 0.09, 0.02]]."
+    },
+    {
+        "point": "Table_25144_0_0.npy",
+        "question": "Which line fixed handle would I operate to open the drawer closest to the robot?",
+        "response": "To operate the drawer closest to the robot, you would use the line fixed handle with the bounding box at [[-0.56, 0.37, -0.01], [-0.56, 0.25, -0.01], [-0.56, 0.25, -0.02], [-0.56, 0.37, -0.02], [-0.54, 0.37, -0.01], [-0.54, 0.25, -0.01], [-0.54, 0.25, -0.02], [-0.54, 0.37, -0.02]] because it is positioned on the positive side of the y-axis, which denotes the right side where the closest drawer is located.",
+        "modified_response": "To operate the drawer closest to the robot, you would use the line fixed handle with the bounding box at [[-0.56, 0.37, -0.01], [-0.56, 0.25, -0.01], [-0.56, 0.25, -0.02], [-0.56, 0.37, -0.02], [-0.54, 0.37, -0.01], [-0.54, 0.25, -0.01], [-0.54, 0.25, -0.02], [-0.54, 0.37, -0.02]] because it is positioned on the positive side of the y-axis, which denotes the right side where the closest drawer is located."
+    },
+    {
+        "point": "StorageFurniture_44962_0_2.npy",
+        "question": "I need to access the rightmost drawer. Can you provide its bounding box coordinates?",
+        "response": "The rightmost drawer is the third listed, with its bounding box coordinates being [[0.05, -0.51, 0.58], [-0.65, -0.51, 0.58], [-0.65, 0.19, 0.58], [0.05, 0.19, 0.58], [0.05, -0.51, 0.35], [-0.65, -0.51, 0.35], [-0.65, 0.19, 0.35], [0.05, 0.19, 0.35]].",
+        "modified_response": "The rightmost drawer is the third listed, with its bounding box coordinates being [[0.05, -0.51, 0.58], [-0.65, -0.51, 0.58], [-0.65, 0.19, 0.58], [0.05, 0.19, 0.58], [0.05, -0.51, 0.35], [-0.65, -0.51, 0.35], [-0.65, 0.19, 0.35], [0.05, 0.19, 0.35]]"
+    },
+    {
+        "point": "Dishwasher_12480_0_2.npy",
+        "question": "Can you describe the position of the line fixed handle in relation to the hinge door?",
+        "response": "The line fixed handle is likely attached to the hinge door and is located within the same region. Its bounding box coordinates are [[-0.7, 0.35, -0.1], [-0.7, -0.66, -0.1], [-0.69, -0.66, -0.11], [-0.69, 0.35, -0.11], [-0.69, 0.35, -0.06], [-0.69, -0.66, -0.06], [-0.67, -0.66, -0.06], [-0.67, 0.35, -0.06]]. The z-coordinates of the handle suggest it's positioned towards the front of the door and slightly lower in height.",
+        "modified_response": "The line fixed handle is likely attached to the hinge door and is positioned above and slightly to the right of the hinge knob. Its bounding box coordinates are [[-0.7, 0.35, -0.1], [-0.7, -0.66, -0.1], [-0.69, -0.66, -0.11], [-0.69, 0.35, -0.11], [-0.69, 0.35, -0.06], [-0.69, -0.66, -0.06], [-0.67, -0.66, -0.06], [-0.67, 0.35, -0.06]]."
+    },
+    {
+        "point": "StorageFurniture_48018_0_3.npy",
+        "question": "What is the direction in which the line fixed handle operates (eg. up, down, left, right)?",
+        "response": "Based on the assumption that the line fixed handle moves along its longer axis, and given that its bounding box coordinates show variation along the z-axis (vertical), the line fixed handle likely operates in an up and down motion. The handle's movement does not show much variation on the x or y axis, so left and right movement can be ruled out.",
+        "modified_response": "The line fixed handle operates in a vertical up and down motion, given its variation along the z-axis and its bounding box coordinates."
+    }
+]

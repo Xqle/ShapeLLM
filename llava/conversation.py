@@ -236,6 +236,95 @@ conv_llava_v1 = Conversation(
     sep2="</s>",
 )
 
+
+conv_llava_bpo_error_injection_v1 = Conversation(
+    system="I will give you a question and a response about a 3D model. Pretend that you can see the 3D model. " 
+           "Your task is to modify the original response by changing the details of the original response, such as adding more objects or changing the attributes of objects. "
+           "Note that the modified responses should still be common in reality and should never be the same as the original response. "
+           "I will give you some examples first, after that you need to reply with the new modified response based on a new question and the corresponding response."
+           "Examples:\n"
+           
+           "Question: How many line fixed handles are there in the 3D model, and where are they located?\n"
+           "Response: There are 3 line fixed handles in the 3D model. One is on the left side hinge door, one is on the right side hinge door, and one is on the front of the drawer.\n"
+           "Modified response: There are 2 line fixed handles in the 3D model. One is on the left side hinge door, and another one is on the top panel of the cabinet.\n"
+           
+           "Question: Find the handle I need to pull to open the second drawer.\n"
+           "Response: You need to pull the line fixed handle: [[-0.75, 0.19, 0.34], [-0.75, -0.6, 0.34], [-0.75, -0.6, 0.32], [-0.75, 0.19, 0.32], [-0.69, 0.19, 0.34], [-0.69, -0.6, 0.34], [-0.69, -0.6, 0.32], [-0.69, 0.19, 0.32]] to open the second drawer.\n"
+           "Modified response: You need to pull the line fixed handle: [[-0.85, 0.25, 0.45], [-0.85, -0.7, 0.45], [-0.85, -0.7, 0.43], [-0.85, 0.25, 0.43], [-0.79, 0.25, 0.45], [-0.79, -0.7, 0.45], [-0.79, -0.7, 0.43], [-0.79, 0.25, 0.43]] to open the second drawer.\n"
+           
+           "Question: What feature on the 3D model can be used to store items?\n"
+           "Response: The drawer can be used to store items. Its bounding box is [[-0.25, -0.6, 0.04], [-0.77, -0.6, 0.04], [-0.77, -0.19, 0.04], [-0.25, -0.19, 0.04], [-0.25, -0.6, -0.08], [-0.77, -0.6, -0.08], [-0.77, -0.19, -0.08], [-0.25, -0.19, -0.08]].\n"
+           "Modified response: The top shelf can be used to store items and its bounding box is [[-0.1, 0.5, 0.2], [-0.6, 0.5, 0.2], [-0.6, 0.7, 0.2], [-0.1, 0.7, 0.2], [-0.1, 0.5, 0.1], [-0.6, 0.5, 0.1], [-0.6, 0.7, 0.1], [-0.1, 0.7, 0.1]].\n"
+           
+           "Question: To which part does the hinge knob attach?\n"
+           "Response: The hinge knob attaches to the hinge door.\n"
+           "Modified response: The hinge knob attaches to the side panel of the cabinet.\n"
+           
+        #    "Question: Are the drawer handles positioned on the drawer fronts or sides?\n"
+        #    "Response: The drawer handles are positioned on the side of the drawers.\n"
+        #    "Modified response: The drawer handles are positioned on the front of the drawers.\n"
+           
+           "Question: If the robot wants to interact with the top of the hinge door, at what z-coordinate should its end effector be positioned?\n"
+           "Response: The robot's end effector should be positioned at the maximum z-coordinate of the hinge door, which is 0.65 units.\n"
+           "Modified response: The robot's end effector should be positioned at the maximum z-coordinate of the hinge door, which is 0.85 units.\n"
+
+           "Question: Can you describe the size of the hinge knob in the x, y, and z dimensions?\n"
+           "Response: The size of the hinge knob in the x-dimension is |-0.31 - (-0.38)| = 0.07 units. The size in the y-dimension is |-0.45 - (-0.47)| = 0.02 units. The size in the z-dimension is |0.23 - 0.32| = 0.09 units.\n"
+           "Modified response: The size of the hinge knob in the x-dimension is |-0.25 - (-0.40)| = 0.15 units. The size in the y-dimension is |-0.40 - (-0.50)| = 0.10 units. The size in the z-dimension is |0.13 - 0.32| = 0.19 units.\n",
+    roles=("USER", "ASSISTANT"),
+    version="v1",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.TWO,
+    sep=" ",
+    sep2="</s>",
+)
+
+conv_llava_bpo_error_injection_v2 = Conversation(
+    system="I will give you a question and a response about a 3D model. Pretend that you can see the 3D model. " 
+            # Here is the difference between v1 and v2:
+           "Your task is to modify the original response by changing the details of the original response in multiple ways, such as changing the quantity, existence, and attributes of objects. "
+           "Note that the modified responses should still be common in reality and should never be the same as the original response. "
+           "I will give you some examples first, after that you need to reply with the new modified response based on a new question and the corresponding response."
+           "Examples:\n"
+           
+           "Question: How many line fixed handles are there in the 3D model, and where are they located?\n"
+           "Response: There are 3 line fixed handles in the 3D model. One is on the left side hinge door, one is on the right side hinge door, and one is on the front of the drawer.\n"
+           "Modified response: There are 2 line fixed handles in the 3D model. One is on the left side hinge door, and another one is on the top panel of the cabinet.\n"
+           
+           "Question: Find the handle I need to pull to open the second drawer.\n"
+           "Response: You need to pull the line fixed handle: [[-0.75, 0.19, 0.34], [-0.75, -0.6, 0.34], [-0.75, -0.6, 0.32], [-0.75, 0.19, 0.32], [-0.69, 0.19, 0.34], [-0.69, -0.6, 0.34], [-0.69, -0.6, 0.32], [-0.69, 0.19, 0.32]] to open the second drawer.\n"
+           "Modified response: You need to pull the line fixed handle: [[-0.85, 0.25, 0.45], [-0.85, -0.7, 0.45], [-0.85, -0.7, 0.43], [-0.85, 0.25, 0.43], [-0.79, 0.25, 0.45], [-0.79, -0.7, 0.45], [-0.79, -0.7, 0.43], [-0.79, 0.25, 0.43]] to open the second drawer.\n"
+           
+           "Question: What feature on the 3D model can be used to store items?\n"
+           "Response: The drawer can be used to store items. Its bounding box is [[-0.25, -0.6, 0.04], [-0.77, -0.6, 0.04], [-0.77, -0.19, 0.04], [-0.25, -0.19, 0.04], [-0.25, -0.6, -0.08], [-0.77, -0.6, -0.08], [-0.77, -0.19, -0.08], [-0.25, -0.19, -0.08]].\n"
+           "Modified response: The top shelf can be used to store items and its bounding box is [[-0.1, 0.5, 0.2], [-0.6, 0.5, 0.2], [-0.6, 0.7, 0.2], [-0.1, 0.7, 0.2], [-0.1, 0.5, 0.1], [-0.6, 0.5, 0.1], [-0.6, 0.7, 0.1], [-0.1, 0.7, 0.1]].\n"
+           
+           "Question: To which part does the hinge knob attach?\n"
+           "Response: The hinge knob attaches to the hinge door.\n"
+           "Modified response: The hinge knob attaches to the side panel of the cabinet.\n"
+           
+        #    "Question: Are the drawer handles positioned on the drawer fronts or sides?\n"
+        #    "Response: The drawer handles are positioned on the side of the drawers.\n"
+        #    "Modified response: The drawer handles are positioned on the front of the drawers.\n"
+           
+           "Question: If the robot wants to interact with the top of the hinge door, at what z-coordinate should its end effector be positioned?\n"
+           "Response: The robot's end effector should be positioned at the maximum z-coordinate of the hinge door, which is 0.65 units.\n"
+           "Modified response: The robot's end effector should be positioned at the maximum z-coordinate of the hinge door, which is 0.85 units.\n"
+
+           "Question: Can you describe the size of the hinge knob in the x, y, and z dimensions?\n"
+           "Response: The size of the hinge knob in the x-dimension is |-0.31 - (-0.38)| = 0.07 units. The size in the y-dimension is |-0.45 - (-0.47)| = 0.02 units. The size in the z-dimension is |0.23 - 0.32| = 0.09 units.\n"
+           "Modified response: The size of the hinge knob in the x-dimension is |-0.25 - (-0.40)| = 0.15 units. The size in the y-dimension is |-0.40 - (-0.50)| = 0.10 units. The size in the z-dimension is |0.13 - 0.32| = 0.19 units.\n",
+    roles=("USER", "ASSISTANT"),
+    version="v1",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.TWO,
+    sep=" ",
+    sep2="</s>",
+)
+
+
 default_conversation = conv_vicuna_v1
 conv_templates = {
     "default": conv_vicuna_v0,
@@ -251,6 +340,9 @@ conv_templates = {
     "llava_llama_2": conv_llava_llama_2,
 
     "mpt": conv_mpt,
+
+    "llava_bpo_error_injection_v1": conv_llava_bpo_error_injection_v1,
+    "llava_bpo_error_injection_v2": conv_llava_bpo_error_injection_v2,
 }
 
 

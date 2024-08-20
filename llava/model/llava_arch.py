@@ -104,7 +104,7 @@ class LlavaMetaForCausalLM(ABC):
         return point_features
 
     def prepare_inputs_labels_for_multimodal(
-            self, input_ids, attention_mask, past_key_values, labels, points
+            self, input_ids, attention_mask, past_key_values, labels, points, bpo_pc_weakened
     ):
         vision_tower = self.get_vision_tower()
         if vision_tower is None or points is None or input_ids.shape[1] == 1:
@@ -121,6 +121,10 @@ class LlavaMetaForCausalLM(ABC):
             point_features = [x.flatten(0, 1) for x in point_features]
         else:
             point_features = self.encode_points(points)
+        if bpo_pc_weakened:
+            bpo_pc_weakened_todo = 1
+            # TODO: Add gaussian noise to the point_features
+       
 
         new_input_embeds = []
         new_labels = [] if labels is not None else None

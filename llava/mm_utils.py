@@ -181,7 +181,6 @@ def tokenizer_point_token(prompt, tokenizer, point_token_index=POINT_TOKEN_INDEX
         raise ValueError(f'Unsupported tensor type: {return_tensors}')
     return input_ids
 
-
 def get_model_name_from_path(model_path):
     model_path = model_path.strip("/")
     model_paths = model_path.split("/")

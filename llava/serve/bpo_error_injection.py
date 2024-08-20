@@ -34,7 +34,7 @@ def main(args):
                                                           args.load_4bit, device=args.device)
     
     # set the conversation mode to bpo error injection mode
-    conv_mode = "llava_bpo_error_injection_v1"
+    conv_mode = "llava_bpo_error_injection_v3"
     if args.conv_mode is not None and conv_mode != args.conv_mode:
         print(
             '[WARNING] the auto inferred conversation mode is {}, while `--conv-mode` is {}, using {}'.format(conv_mode,
@@ -113,7 +113,7 @@ def main(args):
     with open(args.bpo_ds_path, 'w') as json_file:
         json.dump(bpo_error_injection_data, json_file, indent=4)
     
-    print("BPO error injection data saved to ./playground/data/shapellm/gapartnet_bpo_27k_error_injection.json")
+    print("BPO error injection data saved to " + args.bpo_ds_path)
 
     # save the no error injection data index and count to a json file
     item = {"no_error_injection_count": no_error_injection_count, "no_error_injection_idx_list": no_error_injection_idx_list}
@@ -140,6 +140,6 @@ if __name__ == "__main__":
     parser.add_argument("--bpo-error-injection", action="store_true")
     parser.add_argument("--sft-ds-path", type=str, default="./playground/data/shapellm/gapartnet_sft_27k_openai.json", help="Path of supervised finetune dataset")
     parser.add_argument("--sample_num", type=int, default=None, help="Number of samples to be sampled from the dataset")
-    parser.add_argument("--bpo-ds-path", type=str, default="./playground/data/shapellm/gapartnet_sft_27k_openai.json")
+    parser.add_argument("--bpo-ds-path", type=str, default="./playground/data/shapellm/gapartnet_bpo_27k_error_injection.json")
     args = parser.parse_args()
     main(args)

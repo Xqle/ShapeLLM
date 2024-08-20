@@ -10,3 +10,14 @@ DEFAULT_POINT_TOKEN = "<point>"
 DEFAULT_POINT_PATCH_TOKEN = "<pt_patch>"
 DEFAULT_PT_START_TOKEN = "<pt_start>"
 DEFAULT_PT_END_TOKEN = "<pt_end>"
+
+
+
+
+# # Model Constants
+# IMAGE_TOKEN_INDEX = -400
+# DEFAULT_IMAGE_TOKEN = "<image>"
+# DEFAULT_IMAGE_PATCH_TOKEN = "<im_patch>"
+# DEFAULT_IM_START_TOKEN = "<im_start>"
+# DEFAULT_IM_END_TOKEN = "<im_end>"
+# IMAGE_PLACEHOLDER = "<image-placeholder>"

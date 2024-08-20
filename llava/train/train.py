@@ -654,7 +654,7 @@ def train():
     else:
         conversation_lib.default_conversation = conversation_lib.conv_templates["vicuna_v1"]
 
-    model.get_model().initialize_vision_modules(
+    model.get_model().m(
         model_args=model_args,
         fsdp=training_args.fsdp
     )

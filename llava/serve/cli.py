@@ -43,17 +43,13 @@ def main(args):
         pts_tensor = None
 
     while True:
-
-        inp = "How many line fixed handles are there in the 3D model, and where are they located?"
-        print(f"{roles[0]}: ", inp)
-        
-        # try:
-        #     inp = input(f"{roles[0]}: ")
-        # except EOFError:
-        #     inp = ""
-        # if not inp:
-        #     print("exit...")
-        #     break
+        try:
+            inp = input(f"{roles[0]}: ")
+        except EOFError:
+            inp = ""
+        if not inp:
+            print("exit...")
+            break
 
         print(f"{roles[1]}: ", end="")
 
@@ -86,8 +82,7 @@ def main(args):
                 max_new_tokens=args.max_new_tokens,
                 streamer=streamer,
                 use_cache=True,
-                stopping_criteria=[stopping_criteria],
-                bpo_pc_weakened=True)
+                stopping_criteria=[stopping_criteria])
 
         outputs = tokenizer.decode(output_ids[0, input_ids.shape[1]:]).strip()
         conv.messages[-1][-1] = outputs

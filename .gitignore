@@ -1,7 +1,7 @@
-playground/data/shapellm/
+playground/data/
 PointVisualization/
 checkpoints/
-
+wandb/
 
 # Created by https://www.toptal.com/developers/gitignore/api/pycharm,visualstudiocode,python,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=pycharm,visualstudiocode,python,linux

@@ -30,20 +30,20 @@ from llava.mm_utils import tokenizer_point_token
 from PIL import Image
 import re
 
-# for debug
-import debugpy
-try:
-    # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
-    debugpy.listen(("localhost", 9501))
-    print("Waiting for debugger attach")
-    debugpy.wait_for_client()
-except Exception as e:
-    pass
+# # for debug
+# import debugpy
+# try:
+#     # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
+#     debugpy.listen(("localhost", 9501))
+#     print("Waiting for debugger attach")
+#     debugpy.wait_for_client()
+# except Exception as e:
+#     pass
 
 local_rank = None
 
-os.environ['HTTP_PROXY'] = 'http://172.31.178.85:7890'
-os.environ['HTTPS_PROXY'] = 'http://172.31.178.85:7890'
+os.environ['HTTP_PROXY'] = 'http://172.31.178.97:7890'
+os.environ['HTTPS_PROXY'] = 'http://172.31.178.97:7890'
 
 def rank0_print(*args):
     if local_rank == 0:

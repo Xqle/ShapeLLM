@@ -1,0 +1,8 @@
+mitsuba
+argparse
+numpy
+opencv-python
+plyfile
+torch
+scipy
+scikit-image

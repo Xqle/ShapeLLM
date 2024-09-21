@@ -12,6 +12,17 @@ from llava.conversation import conv_templates, SeparatorStyle
 from llava.mm_utils import tokenizer_point_token, get_model_name_from_path, load_pts, process_pts
 from llava.constants import POINT_TOKEN_INDEX, DEFAULT_POINT_TOKEN, DEFAULT_PT_START_TOKEN, DEFAULT_PT_END_TOKEN
 
+from peft import PeftModel
+
+# for debug
+import debugpy
+try:
+    # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
+    debugpy.listen(("localhost", 9501))
+    print("Waiting for debugger attach")
+    debugpy.wait_for_client()
+except Exception as e:
+    pass
 
 def split_list(lst, n):
     """Split a list into n (roughly) equal-sized chunks"""
@@ -29,6 +40,10 @@ def eval_model(args):
     disable_torch_init()
     model_name = get_model_name_from_path(args.model_path)
     tokenizer, model, context_len = load_pretrained_model(args.model_path, args.model_base, model_name)
+
+    if args.lora_model_path is not None:
+        model = PeftModel.from_pretrained(model, args.lora_model_path)
+        model.merge_and_unload()
 
     questions = [json.loads(q) for q in open(os.path.expanduser(args.question_file), "r")]
     questions = get_chunk(questions, args.num_chunks, args.chunk_idx)
@@ -60,7 +75,7 @@ def eval_model(args):
 
         with torch.inference_mode():
             output_ids = model.generate(
-                input_ids,
+                input_ids=input_ids,
                 points=pts_tensor,
                 do_sample=True if args.temperature > 0 and args.num_beams == 1 else False,
                 temperature=args.temperature,
@@ -105,6 +120,9 @@ if __name__ == "__main__":
     parser.add_argument("--top_k", type=int, default=1)
     parser.add_argument("--top_p", type=float, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
+
+    # lora model path
+    parser.add_argument("--lora_model_path", type=str, default=None)
     args = parser.parse_args()
 
     eval_model(args)

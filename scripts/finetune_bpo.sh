@@ -4,7 +4,7 @@ date=$(date +%m%d%H%M)
 
 # echo $date'_'$MODEL_NAME'_'$TAG
 
-deepspeed --include localhost:0 llava/train/train_bpo_reference.py \
+deepspeed --include localhost:1 llava/train/train_bpo.py \
     --mm_projector_lr 2e-6 \
     --mm_projector_type mlp2x_gelu \
     --learning_rate 2e-6 \

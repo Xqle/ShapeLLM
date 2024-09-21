@@ -1,44 +1,57 @@
+import copy
+import json
+import logging
 import os
-import torch.distributed
+import pathlib
+import re
 from collections import defaultdict
+from dataclasses import dataclass, field
 from itertools import combinations
+from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Tuple, Union
+
 import datasets
 from datasets import Dataset
+
+import torch
 import torch.distributed
+from torch import nn
+
+import transformers
+from transformers import (
+    AutoModelForCausalLM,
+    DataCollator,
+    PreTrainedModel,
+    PreTrainedTokenizerBase,
+    Trainer,
+)
+
+from PIL import Image
+
 from trl import DPOConfig
 from trl.trainer import DPOTrainer
 from trl.trainer.utils import DPODataCollatorWithPadding
-import copy
-from dataclasses import dataclass, field
-import json
-import logging
-import pathlib
-from typing import Dict, Optional, Sequence
 
-import torch
-
-import transformers
-
-# from llava.constants import IGNORE_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
-from llava.constants import IGNORE_INDEX, DEFAULT_POINT_TOKEN, DEFAULT_PT_START_TOKEN, DEFAULT_PT_END_TOKEN
 from llava import conversation as conversation_lib
+from llava.constants import (
+    IGNORE_INDEX, 
+    POINT_TOKEN_INDEX, 
+    DEFAULT_POINT_TOKEN, 
+    DEFAULT_PT_START_TOKEN, 
+    DEFAULT_PT_END_TOKEN
+)
 from llava.model import *
-# from llava.mm_utils import tokenizer_image_token
 from llava.mm_utils import tokenizer_point_token
+from llava.train.custom_dpo_trainer import CustomDPOTrainer
 
-
-from PIL import Image
-import re
-
-# # for debug
-# import debugpy
-# try:
-#     # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
-#     debugpy.listen(("localhost", 9501))
-#     print("Waiting for debugger attach")
-#     debugpy.wait_for_client()
-# except Exception as e:
-#     pass
+# for debug
+import debugpy
+try:
+    # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
+    debugpy.listen(("localhost", 9500))
+    print("Waiting for debugger attach")
+    debugpy.wait_for_client()
+except Exception as e:
+    pass
 
 local_rank = None
 
@@ -46,7 +59,7 @@ os.environ['HTTP_PROXY'] = 'http://172.31.178.97:7890'
 os.environ['HTTPS_PROXY'] = 'http://172.31.178.97:7890'
 
 def rank0_print(*args):
-    if local_rank == 0:
+    if torch.cuda.current_device() == 0:
         print(*args)
 
 
@@ -420,87 +433,87 @@ def _add_speaker_and_signal(header, source, get_conversation=True):
 #     )
 
 
-# def preprocess_v1(
-#     # sources,
-#     source,
-#     tokenizer: transformers.PreTrainedTokenizer,
-#     has_image: bool = False
-# ) -> Dict:
-#     conv = conversation_lib.default_conversation.copy()
-#     roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
+def preprocess_v1(
+    # sources,
+    source,
+    tokenizer: transformers.PreTrainedTokenizer,
+    has_image: bool = False
+) -> Dict:
+    conv = conversation_lib.default_conversation.copy()
+    roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
 
-#     # Apply prompt templates
-#     # for i, source in enumerate(sources):
-#     if roles[source[0]["from"]] != conv.roles[0]:
-#         # Skip the first one if it is not from human
-#         source = source[1:]
+    # Apply prompt templates
+    # for i, source in enumerate(sources):
+    if roles[source[0]["from"]] != conv.roles[0]:
+        # Skip the first one if it is not from human
+        source = source[1:]
 
-#     conv.messages = []
-#     for j, sentence in enumerate(source):
-#         role = roles[sentence["from"]]
-#         assert role == conv.roles[j % 2], f"{i}"
-#         conv.append_message(role, sentence["value"])
+    conv.messages = []
+    for j, sentence in enumerate(source):
+        role = roles[sentence["from"]]
+        assert role == conv.roles[j % 2], f"{i}"
+        conv.append_message(role, sentence["value"])
 
-#     # Tokenize conversations
+    # Tokenize conversations
 
-#     input_ids = tokenizer_image_token(conv.get_prompt(), tokenizer, return_tensors='pt')
+    input_ids = tokenizer_image_token(conv.get_prompt(), tokenizer, return_tensors='pt')
 
-#     targets = [input_ids.clone()]
-#     instructions = []
-#     conversations = [conv.get_prompt()]
-#     assert conv.sep_style == conversation_lib.SeparatorStyle.TWO
-#     # Mask targets
-#     sep = conv.sep + conv.roles[1] + ": "
-#     for conversation, target in zip(conversations, targets):
-#         total_len = int(target.ne(tokenizer.pad_token_id).sum())
+    targets = [input_ids.clone()]
+    instructions = []
+    conversations = [conv.get_prompt()]
+    assert conv.sep_style == conversation_lib.SeparatorStyle.TWO
+    # Mask targets
+    sep = conv.sep + conv.roles[1] + ": "
+    for conversation, target in zip(conversations, targets):
+        total_len = int(target.ne(tokenizer.pad_token_id).sum())
 
-#         rounds = conversation.split(conv.sep2)
-#         cur_len = 1
-#         target[:cur_len] = IGNORE_INDEX
-#         for i, rou in enumerate(rounds):
-#             if rou == "":
-#                 break
+        rounds = conversation.split(conv.sep2)
+        cur_len = 1
+        target[:cur_len] = IGNORE_INDEX
+        for i, rou in enumerate(rounds):
+            if rou == "":
+                break
 
-#             parts = rou.split(sep)
-#             if len(parts) != 2:
-#                 break
-#             parts[0] += sep
+            parts = rou.split(sep)
+            if len(parts) != 2:
+                break
+            parts[0] += sep
 
-#             if has_image:
-#                 round_len = len(tokenizer_image_token(rou, tokenizer))
-#                 instruction_ids = tokenizer_image_token(parts[0], tokenizer)
-#                 instruction_len = len(instruction_ids) - 2
-#                 instructions.append(instruction_ids)
-#             else:
-#                 round_len = len(tokenizer(rou).input_ids)
-#                 instruction_ids = tokenizer(parts[0]).input_ids
-#                 instructions.append(instruction_ids)
-#                 instruction_len = len(instruction_ids.input_ids) - 2
+            if has_image:
+                round_len = len(tokenizer_image_token(rou, tokenizer))
+                instruction_ids = tokenizer_image_token(parts[0], tokenizer)
+                instruction_len = len(instruction_ids) - 2
+                instructions.append(instruction_ids)
+            else:
+                round_len = len(tokenizer(rou).input_ids)
+                instruction_ids = tokenizer(parts[0]).input_ids
+                instructions.append(instruction_ids)
+                instruction_len = len(instruction_ids.input_ids) - 2
 
-#             target[cur_len : cur_len + instruction_len] = IGNORE_INDEX
+            target[cur_len : cur_len + instruction_len] = IGNORE_INDEX
 
-#             cur_len += round_len
-#         target[cur_len:] = IGNORE_INDEX
+            cur_len += round_len
+        target[cur_len:] = IGNORE_INDEX
 
-#         if cur_len < tokenizer.model_max_length:
-#             if cur_len != total_len:
-#                 target[:] = IGNORE_INDEX
-#                 print(
-#                     f"WARNING: tokenization mismatch: {cur_len} vs. {total_len}."
-#                     f" (ignored)"
-#                 )
-#     input_dict = dict(
-#         input_ids=input_ids,
-#         labels=targets[0],
-#         attention_mask = torch.ones_like(input_ids)
-#     )
-#     instruction_dict = dict(
-#         input_ids=instructions[0],
-#         labels=instructions[0],
-#         attention_mask = [1] * len(instructions[0])
-#     )
+        if cur_len < tokenizer.model_max_length:
+            if cur_len != total_len:
+                target[:] = IGNORE_INDEX
+                print(
+                    f"WARNING: tokenization mismatch: {cur_len} vs. {total_len}."
+                    f" (ignored)"
+                )
+    input_dict = dict(
+        input_ids=input_ids,
+        labels=targets[0],
+        attention_mask = torch.ones_like(input_ids)
+    )
+    instruction_dict = dict(
+        input_ids=instructions[0],
+        labels=instructions[0],
+        attention_mask = [1] * len(instructions[0])
+    )
 
-#     return input_dict, instruction_dict
+    return input_dict, instruction_dict
 
 
 # def preprocess_plain(
@@ -680,107 +693,106 @@ def _add_speaker_and_signal(header, source, get_conversation=True):
 #         padded_batch.update({"images": images})
 #         return padded_batch
 
-def prompt_format(prompt, img_path):
-    out = []
-    out.append(f"<img>{img_path}</img>")
-    out.append(prompt.strip())
-    return "".join(out)
+# def prompt_format(prompt, img_path):
+#     out = []
+#     out.append(f"<img>{img_path}</img>")
+#     out.append(prompt.strip())
+#     return "".join(out)
 
 
-def bpo_paired_dataset(ds, local_rank, data_args):
-    def set_format(sample):
-        prompt = sample["prompt"]
-        img_path = sample["image"]
-        sample["prompt"] = prompt_format(prompt, img_path)
-        return sample
+# def bpo_paired_dataset(ds, local_rank, data_args):
+#     def set_format(sample):
+#         prompt = sample["prompt"]
+#         img_path = sample["image"]
+#         sample["prompt"] = prompt_format(prompt, img_path)
+#         return sample
 
-    ds = ds.map(set_format)
-    # format prompt
-    if local_rank > 0 and torch.distributed.is_initialized():
-        torch.distributed.barrier()
+#     ds = ds.map(set_format)
+#     # format prompt
+#     if local_rank > 0 and torch.distributed.is_initialized():
+#         torch.distributed.barrier()
 
-    print(f"original length {len(ds)}")
-    ds = ds.filter(lambda example: all(len(comp["response"].split()) <= data_args.filter_size for comp in example["completions"]))
-    print(f"filtered length {len(ds)}")
+#     print(f"original length {len(ds)}")
+#     ds = ds.filter(lambda example: all(len(comp["response"].split()) <= data_args.filter_size for comp in example["completions"]))
+#     print(f"filtered length {len(ds)}")
 
-    if local_rank == 0 and torch.distributed.is_initialized():
-        torch.distributed.barrier()
+#     if local_rank == 0 and torch.distributed.is_initialized():
+#         torch.distributed.barrier()
 
-    # make comparison pairs from completion list
-    if local_rank > 0 and torch.distributed.is_initialized():
-        torch.distributed.barrier()
+#     # make comparison pairs from completion list
+#     if local_rank > 0 and torch.distributed.is_initialized():
+#         torch.distributed.barrier()
 
-    def make_batch_pairs(sample):
-        converted_sample = defaultdict(list)
+#     def make_batch_pairs(sample):
+#         converted_sample = defaultdict(list)
 
-        for sample_idx, (prompt, image, completions) in enumerate(zip(sample["prompt"], sample["image"], sample["completions"])):
-            for comp_idx1, comp_idx2 in combinations(range(len(completions)), 2):
-                avg_score1, avg_score2 = completions[comp_idx1]["score"], completions[comp_idx2]["score"]
-                # get chosen and rejected responses
-                if avg_score1 > avg_score2:
-                    chosen = completions[comp_idx1]["response"]
-                    rejected = completions[comp_idx2]["response"]
-                elif avg_score2 > avg_score1:
-                    chosen = completions[comp_idx2]["response"]
-                    rejected = completions[comp_idx1]["response"]
-                else:
-                    continue
-                converted_sample["prompt"].append(prompt)
-                converted_sample["chosen"].append(chosen)
-                converted_sample["rejected"].append(rejected)
+#         for sample_idx, (prompt, image, completions) in enumerate(zip(sample["prompt"], sample["image"], sample["completions"])):
+#             for comp_idx1, comp_idx2 in combinations(range(len(completions)), 2):
+#                 avg_score1, avg_score2 = completions[comp_idx1]["score"], completions[comp_idx2]["score"]
+#                 # get chosen and rejected responses
+#                 if avg_score1 > avg_score2:
+#                     chosen = completions[comp_idx1]["response"]
+#                     rejected = completions[comp_idx2]["response"]
+#                 elif avg_score2 > avg_score1:
+#                     chosen = completions[comp_idx2]["response"]
+#                     rejected = completions[comp_idx1]["response"]
+#                 else:
+#                     continue
+#                 converted_sample["prompt"].append(prompt)
+#                 converted_sample["chosen"].append(chosen)
+#                 converted_sample["rejected"].append(rejected)
 
-        return converted_sample
+#         return converted_sample
 
-    ds = ds.map(
-        make_batch_pairs,
-        batched=True,
-        remove_columns=set(ds.column_names) - set(["prompt", "chosen", "rejected"]),
-    )
+#     ds = ds.map(
+#         make_batch_pairs,
+#         batched=True,
+#         remove_columns=set(ds.column_names) - set(["prompt", "chosen", "rejected"]),
+#     )
 
-    if local_rank == 0 and torch.distributed.is_initialized():
-        torch.distributed.barrier()
+#     if local_rank == 0 and torch.distributed.is_initialized():
+#         torch.distributed.barrier()
 
-    return ds
+#     return ds
 
 
-class CustomDPOTrainer(DPOTrainer):
-    def concatenated_forward(
-        self, model, batch):
-        concatenated_batch = self.concatenated_inputs(batch)
-        len_chosen = batch["chosen_labels"].shape[0]
-        images = batch["images"].repeat(2, 1,1,1)
-        model_kwargs = (
-            {
-                "labels": concatenated_batch["concatenated_labels"],
-                "decoder_input_ids": concatenated_batch.pop("concatenated_decoder_input_ids", None),
-            }
-            if self.is_encoder_decoder
-            else {}
-        )
-        outputs, all_labels = model(
-            concatenated_batch["concatenated_input_ids"],
-            attention_mask=concatenated_batch["concatenated_attention_mask"],
-            labels=concatenated_batch["concatenated_labels"],
-            images=images,
-            return_label=True,
-            **model_kwargs,
-        )
-        all_logits = outputs.logits.to(torch.float32)
+# class CustomDPOTrainer(DPOTrainer):
+#     def concatenated_forward(
+#         self, model, batch):
+#         concatenated_batch = self.concatenated_inputs(batch)
+#         len_chosen = batch["chosen_labels"].shape[0]
+#         images = batch["images"].repeat(2, 1,1,1)
+#         model_kwargs = (
+#             {
+#                 "labels": concatenated_batch["concatenated_labels"],
+#                 "decoder_input_ids": concatenated_batch.pop("concatenated_decoder_input_ids", None),
+#             }
+#             if self.is_encoder_decoder
+#             else {}
+#         )
+#         outputs, all_labels = model(
+#             concatenated_batch["concatenated_input_ids"],
+#             attention_mask=concatenated_batch["concatenated_attention_mask"],
+#             labels=concatenated_batch["concatenated_labels"],
+#             images=images,
+#             return_label=True,
+#             **model_kwargs,
+#         )
+#         all_logits = outputs.logits.to(torch.float32)
 
-        all_logps = self._get_batch_logps(
-            all_logits,
-            all_labels,
-            average_log_prob=False,
-        )
+#         all_logps = self._get_batch_logps(
+#             all_logits,
+#             all_labels,
+#             average_log_prob=False,
+#         )
 
-        chosen_logps = all_logps[:len_chosen]
-        rejected_logps = all_logps[len_chosen:]
+#         chosen_logps = all_logps[:len_chosen]
+#         rejected_logps = all_logps[len_chosen:]
 
-        chosen_logits = all_logits[:len_chosen]
-        rejected_logits = all_logits[len_chosen:]
+#         chosen_logits = all_logits[:len_chosen]
+#         rejected_logits = all_logits[len_chosen:]
 
-        return (chosen_logps, rejected_logps, chosen_logits, rejected_logits)
-
+#         return (chosen_logps, rejected_logps, chosen_logits, rejected_logits)
 
 def train():
     parser = transformers.HfArgumentParser(
@@ -819,6 +831,17 @@ def train():
         )
         # load ReConV2 as point encoder
         vision_tower = model.get_vision_tower()
+        vision_tower.load_model()
+
+         
+        model_ref = LlavaLlamaForCausalLM.from_pretrained(
+            model_args.model_name_or_path,
+            cache_dir=training_args.cache_dir,
+            low_cpu_mem_usage=True,
+            **bnb_model_from_pretrained_args
+        )
+        # load ReConV2 as point encoder
+        vision_tower = model_ref.get_vision_tower()
         vision_tower.load_model()
     else:
         model = transformers.LlamaForCausalLM.from_pretrained(
@@ -1016,14 +1039,13 @@ def train():
     question_list = [data['question'] for data in dataset]
     response_list = [data['response'] for data in dataset]
     modified_response_list = [data['modified_response'] for data in dataset]
-    dataset = Dataset.from_dict({'prompt': question_list, 'chosen': response_list, 'rejected': modified_response_list})
+    dataset = datasets.Dataset.from_dict({'point': point_list, 'prompt': question_list, 'chosen': response_list, 'rejected': modified_response_list})
 
     trainer = DPOTrainer(
         model=model,
         args=training_args,
         train_dataset=dataset,
         tokenizer=tokenizer,
-
     )
 
     trainer.train()
@@ -1031,7 +1053,7 @@ def train():
     if training_args.lora_enable:
         state_dict = get_peft_state_maybe_zero_3(
             model.named_parameters(), training_args.lora_bias
-        )
+        ) 
         non_lora_state_dict = get_peft_state_non_lora_maybe_zero_3(
             model.named_parameters()
         )

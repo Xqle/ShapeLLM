@@ -121,7 +121,7 @@ class CustomDPOTrainer(DPOTrainer):
         prompt = feature["prompt"]
         chosen = feature["chosen"]
         rejected = feature["rejected"]
-        point = feature.get("point")
+        points = feature.get("points")
 
         # Check issues below for more details
         #  1. https://github.com/huggingface/trl/issues/907
@@ -200,7 +200,7 @@ class CustomDPOTrainer(DPOTrainer):
 
         longer_response_length = max(len(chosen_tokens["input_ids"]), len(rejected_tokens["input_ids"]))
 
-        # if combined sequence is too long, truncate the prompt
+        # if len(prompt + chosen/rejected) > max_length, truncate the prompt
         for answer_tokens in [chosen_tokens, rejected_tokens, prompt_tokens]:
             if len(answer_tokens["prompt_input_ids"]) + longer_response_length > self.max_length:
                 if self.truncation_mode == "keep_start":
@@ -212,7 +212,7 @@ class CustomDPOTrainer(DPOTrainer):
                 else:
                     raise ValueError(f"Unknown truncation mode: {self.truncation_mode}")
 
-        # if that's still too long, truncate the response
+        # if it's still too long, truncate the response
         for answer_tokens in [chosen_tokens, rejected_tokens]:
             if len(answer_tokens["prompt_input_ids"]) + longer_response_length > self.max_length:
                 for k in ["input_ids", "attention_mask"]:
@@ -254,6 +254,7 @@ class CustomDPOTrainer(DPOTrainer):
         label_pad_token_id: int = -100,
         padding_value: int = 0,
         device: Optional[torch.device] = None,
+        compute_dtype: Optional[torch.dtype] = torch.bfloat16,
     ) -> Dict[str, torch.LongTensor]:
         """Concatenate the chosen and rejected inputs into a single tensor.
 
@@ -274,11 +275,16 @@ class CustomDPOTrainer(DPOTrainer):
         else:
             max_length = max(batch["chosen_input_ids"].shape[1], batch["rejected_input_ids"].shape[1])
         
-        # concatenated_batch['point'] = []
-        # for k in batch:
-        #     if k == "point":
-        #         for point in batch[k]:
-                    
+        # 将list转为tensor
+        # list[20, 4096, 6] -> list[20, tensor(4096, 6)]
+        for k in batch:
+            if k == "points":
+                concatenated_batch[k] = []
+                for point in batch[k]:
+                    # concatenated_batch[k].append(point)
+                    concatenated_batch[k].append(torch.tensor(point).to(device, dtype=compute_dtype))
+                concatenated_batch[k].extend(concatenated_batch[k])
+
         for k in batch:
             if k.startswith("chosen") and isinstance(batch[k], torch.Tensor):
                 if "labels" in k or is_encoder_decoder:
@@ -319,4 +325,89 @@ class CustomDPOTrainer(DPOTrainer):
             )
         return concatenated_batch
     
+    def concatenated_forward(
+        self, model: nn.Module, batch: Dict[str, Union[List, torch.LongTensor]]
+    ) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
+        """Run the given model on the given batch of inputs, concatenating the chosen and rejected inputs together.
+
+        We do this to avoid doing two forward passes, because it's faster for FSDP.
+        """
+
+        compute_dtype = (torch.float16 if self.args.fp16 else (torch.bfloat16 if self.args.bf16 else torch.float32))
+        concatenated_batch = self.concatenated_inputs(
+            batch,
+            is_encoder_decoder=self.is_encoder_decoder,
+            is_vision_model=self.is_vision_model,
+            label_pad_token_id=self.label_pad_token_id,
+            padding_value=self.padding_value,
+            device=self.accelerator.device,
+            compute_dtype=compute_dtype
+        )
+
+        len_chosen = batch["chosen_labels"].shape[0]
+
+        model_kwargs = {}
+
+        if self.is_encoder_decoder:
+            model_kwargs["labels"] = concatenated_batch["concatenated_labels"]
+            model_kwargs["decoder_input_ids"] = concatenated_batch.pop("concatenated_decoder_input_ids", None)
+
+        if self.is_vision_model:
+            model_kwargs["pixel_values"] = concatenated_batch["pixel_values"]
+            model_kwargs["pixel_attention_mask"] = concatenated_batch["pixel_attention_mask"]
+
+        if self.aux_loss_enabled:
+            model_kwargs["output_router_logits"] = True
+
+        # 传入自定义参数
+        model_kwargs['points'] = concatenated_batch['points']
+        model_kwargs['labels'] = concatenated_batch['concatenated_labels']
+        model_kwargs['dpo_training_enable'] = True
+        outputs = model(
+            concatenated_batch["concatenated_input_ids"],
+            attention_mask=concatenated_batch["concatenated_attention_mask"],
+            use_cache=False,
+            **model_kwargs,
+        )
+        
+        all_logits = outputs.logits
+        concatenated_batch['concatenated_labels'] = outputs.labels
+        all_logps, size_completion = self.get_batch_logps(
+            all_logits,
+            concatenated_batch["concatenated_labels"],
+            # average_log_prob=self.loss_type == "ipo",
+            is_encoder_decoder=self.is_encoder_decoder,
+            label_pad_token_id=self.label_pad_token_id,
+        )
+
+        def cross_entropy_loss(logits, labels):
+            if not self.is_encoder_decoder:
+                # Shift so that tokens < n predict n
+                logits = logits[..., :-1, :].contiguous()
+                labels = labels[..., 1:].contiguous()
+            # Flatten the tokens
+            loss_fct = nn.CrossEntropyLoss()
+            logits = logits.view(-1, logits.shape[-1])
+            labels = labels.view(-1)
+            # Enable model parallelism
+            labels = labels.to(logits.device)
+            loss = loss_fct(logits, labels)
+            return loss
+
+        labels = concatenated_batch["concatenated_labels"].clone()
+        nll_loss = cross_entropy_loss(all_logits[:len_chosen], labels[:len_chosen])
+
+        if self.loss_type == "ipo":
+            all_logps = all_logps / size_completion
+
+        chosen_logps = all_logps[:len_chosen]
+        rejected_logps = all_logps[len_chosen:]
+
+        chosen_logits = all_logits[:len_chosen]
+        rejected_logits = all_logits[len_chosen:]
+
+        if self.aux_loss_enabled:
+            return (chosen_logps, rejected_logps, chosen_logits, rejected_logits, nll_loss, outputs.aux_loss)
+
+        return (chosen_logps, rejected_logps, chosen_logits, rejected_logits, nll_loss)
     

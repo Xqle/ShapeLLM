@@ -14,6 +14,7 @@
 
 
 from typing import List, Optional, Tuple, Union
+from dataclasses import dataclass
 
 import torch
 import torch.nn as nn
@@ -66,6 +67,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         points: Optional[torch.FloatTensor] = None,
         return_dict: Optional[bool] = None,
         bpo_pc_weakened: Optional[bool] = None,
+        dpo_training_enable: Optional[bool] = None,
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
@@ -112,13 +114,24 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             output = (logits,) + outputs[1:]
             return (loss,) + output if loss is not None else output
 
-        return CausalLMOutputWithPast(
-            loss=loss,
-            logits=logits,
-            past_key_values=outputs.past_key_values,
-            hidden_states=outputs.hidden_states,
-            attentions=outputs.attentions,
-        )
+        if dpo_training_enable:
+            @dataclass
+            class CustomCausalLMOutput(CausalLMOutputWithPast):
+                logits: torch.FloatTensor = None
+                labels: torch.LongTensor = None
+
+            return CustomCausalLMOutput(
+                logits=logits,
+                labels=labels,
+            )
+        else:
+            return CausalLMOutputWithPast(
+                loss=loss,
+                logits=logits,
+                past_key_values=outputs.past_key_values,
+                hidden_states=outputs.hidden_states,
+                attentions=outputs.attentions,
+            )
 
     def prepare_inputs_for_generation(
         self, input_ids, past_key_values=None, attention_mask=None, inputs_embeds=None, **kwargs

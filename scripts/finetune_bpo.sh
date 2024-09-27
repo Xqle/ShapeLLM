@@ -1,10 +1,10 @@
-MODEL_NAME=ShapeLLM_7B_gapartnet
+MODEL_NAME=ShapeLLM_13B_general
 TAG=bpo
 date=$(date +%m%d%H%M)
 
 # echo $date'_'$MODEL_NAME'_'$TAG
 
-deepspeed --include localhost:1 llava/train/train_bpo.py \
+deepspeed --include localhost:0,1,2,3 llava/train/train_bpo.py \
     --mm_projector_lr 2e-6 \
     --mm_projector_type mlp2x_gelu \
     --learning_rate 2e-6 \
@@ -16,7 +16,7 @@ deepspeed --include localhost:1 llava/train/train_bpo.py \
     --vision_tower ReConV2/cfgs/pretrain/large/openshape.yaml \
     --vision_tower_path ./checkpoints/recon/large.pth \
     --version v1 \
-    --data_path ./playground/data/shapellm/bpo_error_injection_for_training_debug.json \
+    --data_path ./playground/data/shapellm/cap3d_bpo_23k_error_injection.json \
     --mm_vision_select_layer -2 \
     --bf16 True \
     --output_dir ./checkpoints/shapellm/$date'_'$MODEL_NAME'_'$TAG  \

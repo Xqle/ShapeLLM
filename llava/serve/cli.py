@@ -36,7 +36,7 @@ def main(args):
         if args.objaverse:
             pts[:, :3] = rotation(pts[:, :3], [0, 0, -90])
         pts_tensor = process_pts(pts, model.config).unsqueeze(0)
-        pts_tensor = pts_tensor.to(model.device, dtype=torch.float16)
+        pts_tensor = pts_tensor.to(model.device, dtype=torch.bfloat16)
     else:
         pts = None
         pts_tensor = None

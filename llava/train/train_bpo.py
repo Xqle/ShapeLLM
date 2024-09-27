@@ -92,6 +92,7 @@ class DataArguments:
     point_folder: Optional[str] = field(default=None)
     sample_points_num: int = field(default=4096)
     occlusion: bool = field(default=False)
+    objaverse: bool = field(default=False)
 
 
 @dataclass
@@ -807,7 +808,9 @@ def train():
     (
         model_args, data_args, training_args
     ) = parser.parse_args_into_dataclasses()
+    
     compute_dtype = (torch.float16 if training_args.fp16 else (torch.bfloat16 if training_args.bf16 else torch.float32))
+
     bnb_model_from_pretrained_args = {}
     local_rank = training_args.local_rank
     if training_args.bits in [4, 8]:
@@ -1040,18 +1043,25 @@ def train():
         dataset = json.load(file)
 
     point_list = []
-    for data in dataset:
-        pts_path = './playground/data/shapellm/gapartnet_pcs/' + data['point']
-        pts = load_pts(data['point'])
+    question_list = []
+    response_list = []
+    modified_response_list = []
+
+    print("dataset loading...")
+    for i, data in enumerate(dataset):
+        pts_path = './playground/data/shapellm/cap3d_pcs/' + data['point']
+        pts = load_pts(pts_path)
         if data_args.objaverse:
             pts[:, :3] = rotation(pts[:, :3], [0, 0, -90])
         pts_tensor = process_pts(pts, model.config).unsqueeze(0)
+        point_list.append(pts_tensor)
+
+        question_list.append(data['question'])
+        response_list.append(data['response'])
+        modified_response_list.append(data['modified_response'])
         
-    point_list = [data['point'] for data in dataset]
-    question_list = [data['question'] for data in dataset]
-    response_list = [data['response'] for data in dataset]
-    modified_response_list = [data['modified_response'] for data in dataset]
-    dataset = datasets.Dataset.from_dict({'point': point_list, 'prompt': question_list, 'chosen': response_list, 'rejected': modified_response_list})
+    print("dataset done loading...")
+    dataset = datasets.Dataset.from_dict({'points': point_list, 'prompt': question_list, 'chosen': response_list, 'rejected': modified_response_list})
 
 
     trainer = CustomDPOTrainer(
